@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.fyg.pg.infrastructure.persistent.ItemchkMapper">
+	
+	<select id="findByQuesAndUserAndCommunityAndItem" resultMap="ItemchkWithVal">
+		select * from itemchk where ques_key=#{ques_key} and userid=#{userid} and community_key=#{community_key} and item_code=#{item_code}
+	</select>
+	<resultMap type="Itemchk" id="ItemchkWithVal">
+		<id property="id" column="id" />
+		<collection property="val" javaType="ArrayList" column="id" ofType="String" select="selectValForItemchk" />
+	</resultMap>
+	<select id="selectValForItemchk" resultType="String">
+	  select item_code from itemval where itemchk_id = #{id}
+	</select>
+	
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Itemchk">  
+	   insert into itemchk (ques_key,community_key,userid,item_code) 
+	   values (#{ques_key},#{community_key},#{userid},#{item_code})
+	</insert>  
+	
+	<delete id="deleteVal" >
+		delete from itemval
+		where itemchk_id=#{itemchk_id}
+	</delete>
+	
+	<insert id="saveVal"  keyProperty="id" >  
+	  insert into itemval (itemchk_id,item_code) 
+	  values (#{itemchk_id},#{item_code})
+	</insert>  
+	
+</mapper>

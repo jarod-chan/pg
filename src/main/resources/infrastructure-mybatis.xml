@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd " >
+		
+	<!-- dataSource 数据源配置定义 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+		p:driverClassName="${db.driver}" 
+		p:url="${db.url}" 
+		p:username="${db.username}" 
+		p:password="${db.password}" />
+		
+		
+	<!-- spring 事务控制 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>	
+	
+    <!-- enable transaction demarcation with annotations -->
+    <tx:annotation-driven />
+	
+	<!-- enable autowire -->
+    <context:annotation-config />
+		
+	<!-- 
+	define the SqlSessionFactory
+	configLocation：
+	用于指定Mybatis的配置文件位置。如果指定了该属性，那么会以该配置文件的内容作为配置信息构建对应的SqlSessionFactoryBuilder，但是后续属性指定的内容会覆盖该配置文件里面指定的对应内容。
+	mapperLocations：
+	它表示我们的Mapper文件存放的位置，当我们的Mapper文件跟对应的Mapper接口处于同一位置的时候可以不用指定该属性的值。
+	typeAliasesPackage：
+	它一般对应我们的实体类所在的包，这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。多个package之间可以用逗号或者分号等来进行分隔。
+	typeAliases：
+	数组类型，用来指定别名的。指定了这个属性后，Mybatis会把这个类型的短名称作为这个类型的别名，前提是该类上没有标注@Alias注解，否则将使用该注解对应的值作为此种类型的别名。
+	plugins：
+	数组类型，用来指定Mybatis的Interceptor。
+ 	typeHandlersPackage：
+ 	用来指定TypeHandler所在的包，如果指定了该属性，SqlSessionFactoryBean会自动把该包下面的类注册为对应的TypeHandler。多个package之间可以用逗号或者分号等来进行分隔。
+ 	typeHandlers：
+ 	数组类型，表示TypeHandler。
+	 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+         <property name="mapperLocations"  value="classpath:mapper/*.xml" />
+        <property name="typeAliasesPackage" value="cn.fyg.pg.domain" />
+    </bean>
+
+    <!-- 
+    scan for mappers and let them be autowired 
+    basePackage:
+         用来指定Mapper接口文件所在的基包的，在这个基包或其所有子包下面的Mapper接口都将被搜索到。多个基包之间可以使用逗号或者分号进行分隔。
+    annotationClass：
+         当指定了annotationClass的时候，MapperScannerConfigurer将只注册使用了annotationClass注解标记的接口。
+	markerInterface：
+	markerInterface是用于指定一个接口的，当指定了markerInterface之后，MapperScannerConfigurer将只注册继承自markerInterface的接口。
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.fyg.pg.infrastructure.persistent,cn.fyg.pg.domain" />
+        <property name="annotationClass" value="cn.fyg.pg.infrastructure.persistent.tag.Mapper"/>  
+    </bean>
+	
+</beans>
