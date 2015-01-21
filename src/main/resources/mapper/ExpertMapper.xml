@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.fyg.pg.infrastructure.persistent.ExpertMapper">
+	
+	<select id="exist" resultType="int" >
+		select count(userid) from expert where userid=#{userid}
+	</select>
+	
+	<select id="find" resultMap="expertWithProp" >
+		select * from expert where userid=#{userid}
+	</select>
+	<resultMap type="Expert" id="expertWithProp">
+		<id property="userid" column="userid" />
+		<collection property="prop" javaType="ArrayList" column="userid" ofType="String" select="selectPropForExpert" />
+	</resultMap>
+	<select id="selectPropForExpert" resultType="String">
+	  select prop_key from expprop where userid = #{userid}
+	</select>
+	
+</mapper>

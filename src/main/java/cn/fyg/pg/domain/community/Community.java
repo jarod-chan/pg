@@ -2,17 +2,14 @@ package cn.fyg.pg.domain.community;
 
 /**
  *社区
- *key 主键
- *name 名称
- *no 序号
  */
 public class Community {
 	
-	private String key;
+	private String key; //*key 主键
+	 
+	private String name;//*name 名称
 	
-	private String name;
-	
-	private int no;
+	private int no;//*no 序号
 
 	public String getKey() {
 		return key;
