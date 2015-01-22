@@ -7,4 +7,8 @@ public interface ItemchkService {
 	Itemchk userCheck(String ques_key,String userid,String community_key,String part_code);
 	
 	void saveUserCheck(String ques_key,String userid,String community_key,String part_code,String[] val);
+	
+	void addUserCheck(String ques_key,String userid,String community_key,String part_code,String val);
+	
+	void removeUserCheck(String ques_key,String userid,String community_key,String part_code,String val);
 }

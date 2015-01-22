@@ -6,17 +6,30 @@
 <head>
 <%@ include file="/common/setting.jsp"%>
 <%@ include file="/common/meta.jsp"%>
+<%@ include file="/common/include.jsp"%>
 </head>
-
 <body>
-	<form action="${ctx}/standard/save/${userid}/${community_key}/${ques_key}/${item_code}" method="post">
 	<ul>
 		<c:forEach var="uicv" items="${userItemChkValList}">
-			<li>${uicv.item.content}<input type="checkbox" name="val" value="${uicv.item.code}" <c:if test="${uicv.ischeck}">checked="checked"</c:if> ></li>
+			<li class="context_li <c:if test="${uicv.ischeck}">sel_context</c:if>"  data-code="${uicv.item.code}" >${uicv.item.content}</li>
 		</c:forEach>
 	</ul>
-	<input type="submit" value="保存">
-	</form>
-
 </body>
+<script type="text/javascript">
+$(function(){
+	$(".context_li").click(function(){
+		var li=$(this);
+	  	var item_code=li.data("code");
+	  	if(li.hasClass("sel_context")){
+	  	  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'remove'},function(){	
+	  		  li.removeClass("sel_context"); 
+	  	  });
+	  	}else{
+  		  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'add'},function(){	
+  			li.addClass("sel_context"); 
+  	      });
+	  	}
+	});
+})
+</script>
 </html>

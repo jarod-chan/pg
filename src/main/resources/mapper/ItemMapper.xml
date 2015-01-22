@@ -11,5 +11,9 @@
 	<select id="findByQuesAndCodeAndLevel" resultType="Item">
 		select * from item where ques_key=#{ques_key} and code like '${code}%' and level=#{level}
 	</select>
+	
+	<select id="find" resultType="Item">
+		select * from item where ques_key=#{ques_key} and code=#{code}
+	</select>
 
 </mapper>

@@ -13,5 +13,7 @@ public interface ItemMapper {
 	public List<Item> getAll();
 	
 	public List<Item> findByQuesAndCodeAndLevel(@Param("ques_key")String ques_key,@Param("code")String code,@Param("level")String level);
+
+	public Item find(@Param("ques_key")String ques_key, @Param("code")String code);
 	
 }

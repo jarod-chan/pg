@@ -18,6 +18,8 @@ public interface ItemchkMapper {
 	
 	public void deleteVal(@Param("itemchk_id") int itemchk_id);
 	
+	public void deleteOneVal(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code);
+	
 	public int saveVal(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code);
 
 }

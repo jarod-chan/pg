@@ -8,4 +8,8 @@
 		select * from community  order by no
 	</select>
 	
+	<select id="find" resultType="Community" >
+		select * from community  where `key`=#{key}
+	</select>
+	
 </mapper>

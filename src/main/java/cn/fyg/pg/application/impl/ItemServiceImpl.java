@@ -19,7 +19,12 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> SonOfCode(String ques_key, String code) {
 		int level=StringUtils.split(code,'.').length+1;
-		return itemMapper.findByQuesAndCodeAndLevel(ques_key, code, String.valueOf(level));
+		return this.itemMapper.findByQuesAndCodeAndLevel(ques_key, code, String.valueOf(level));
+	}
+
+	@Override
+	public Item find(String ques_key, String code) {
+		return this.itemMapper.find(ques_key,code);
 	}
 
 }

@@ -20,4 +20,9 @@ public class CommunityServiceImpl implements CommunityService {
 		return this.communityMapper.all();
 	}
 
+	@Override
+	public Community find(String community_key) {
+		return this.communityMapper.find(community_key);
+	}
+
 }

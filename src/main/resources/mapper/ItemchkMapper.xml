@@ -26,6 +26,11 @@
 		where itemchk_id=#{itemchk_id}
 	</delete>
 	
+	<delete id="deleteOneVal" >
+		delete from itemval
+		where itemchk_id=#{itemchk_id} and  item_code=#{item_code}
+	</delete>
+	
 	<insert id="saveVal"  keyProperty="id" >  
 	  insert into itemval (itemchk_id,item_code) 
 	  values (#{itemchk_id},#{item_code})
