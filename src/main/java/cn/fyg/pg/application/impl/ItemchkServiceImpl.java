@@ -44,6 +44,7 @@ public class ItemchkServiceImpl implements ItemchkService {
 	}
 
 	@Override
+	@Transactional
 	public void addUserCheck(String ques_key, String userid,
 			String community_key, String part_code, String val) {
 		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunityAndItem(ques_key, userid, community_key, part_code);
@@ -60,6 +61,7 @@ public class ItemchkServiceImpl implements ItemchkService {
 	}
 
 	@Override
+	@Transactional
 	public void removeUserCheck(String ques_key, String userid,
 			String community_key, String part_code, String val) {
 		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunityAndItem(ques_key, userid, community_key, part_code);

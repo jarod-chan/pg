@@ -27,4 +27,9 @@ public class ItemServiceImpl implements ItemService {
 		return this.itemMapper.find(ques_key,code);
 	}
 
+	@Override
+	public List<Item> parts(String ques_key) {
+		return this.itemMapper.findByQuesAndLevel(ques_key, "1");
+	}
+
 }

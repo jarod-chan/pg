@@ -11,7 +11,7 @@ public class Expert {
 	
 	private String name; //name 专家的姓名
 	
-	private List<String> prop;//专家的专业属性
+	private List<String> partcodes;//专家拥有的模块代码
 
 	public String getUserid() {
 		return userid;
@@ -29,20 +29,19 @@ public class Expert {
 		this.name = name;
 	}
 
-	public List<String> getProp() {
-		return prop;
+	public List<String> getPartcodes() {
+		return partcodes;
 	}
 
-	public void setProp(List<String> prop) {
-		this.prop = prop;
+	public void setPartcodes(List<String> partcodes) {
+		this.partcodes = partcodes;
 	}
 
-	
-	public boolean hasProp(String prop_key){
-		if(this.prop==null||this.prop.isEmpty()){
+	public boolean hasPartcode(String partcode){
+		if(this.partcodes==null||this.partcodes.isEmpty()){
 			return false;
 		}
-		return this.prop.contains(prop_key);
+		return this.partcodes.contains(partcode);
 	}
 
 }

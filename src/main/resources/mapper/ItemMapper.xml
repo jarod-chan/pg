@@ -9,11 +9,15 @@
 	</select>
 	
 	<select id="findByQuesAndCodeAndLevel" resultType="Item">
-		select * from item where ques_key=#{ques_key} and code like '${code}%' and level=#{level}
+		select * from item where ques_key=#{ques_key} and code like '${code}%' and level=#{level} order by code
 	</select>
 	
 	<select id="find" resultType="Item">
 		select * from item where ques_key=#{ques_key} and code=#{code}
+	</select>
+	
+	<select id="findByQuesAndLevel" resultType="Item">
+		select * from item where ques_key=#{ques_key} and level=#{level} order by code
 	</select>
 
 </mapper>

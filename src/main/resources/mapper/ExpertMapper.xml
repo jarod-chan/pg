@@ -8,15 +8,15 @@
 		select count(userid) from expert where userid=#{userid}
 	</select>
 	
-	<select id="find" resultMap="expertWithProp" >
+	<select id="find" resultMap="expertWithPartcode" >
 		select * from expert where userid=#{userid}
 	</select>
-	<resultMap type="Expert" id="expertWithProp">
+	<resultMap type="Expert" id="expertWithPartcode">
 		<id property="userid" column="userid" />
-		<collection property="prop" javaType="ArrayList" column="userid" ofType="String" select="selectPropForExpert" />
+		<collection property="partcodes" javaType="ArrayList" column="userid" ofType="String" select="selectPartcodeForExpert" />
 	</resultMap>
-	<select id="selectPropForExpert" resultType="String">
-	  select prop_key from expprop where userid = #{userid}
+	<select id="selectPartcodeForExpert" resultType="String">
+	  select item_code from expcode where userid = #{userid}
 	</select>
 	
 </mapper>

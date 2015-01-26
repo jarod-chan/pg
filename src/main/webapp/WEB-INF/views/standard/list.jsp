@@ -13,13 +13,13 @@
 	<h3>${community.name}${item.content}</h3>
 	<ul>
 		<c:forEach var="uicc" items="${userItemChkCountList}">
-			<li class="context_li" data-code="${uicc.item.code}"  >${uicc.item.content}${uicc.count}分
+			<li class="context_li" data-code="${uicc.item.code}"  >${uicc.item.content}${uicc.count}分</li>
 		</c:forEach>
 	</ul>
 </body>
 
 <script type="text/javascript">
-$(function(){
+$(function(){ 
 	$(".context_li").click(function(){
 		goto('${ctx}/standard/action/${userid}/${community_key}/${ques_key}/'+$(this).data("code"));
 	});

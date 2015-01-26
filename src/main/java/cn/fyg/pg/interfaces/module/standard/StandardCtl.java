@@ -1,5 +1,7 @@
 package cn.fyg.pg.interfaces.module.standard;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fyg.pg.application.CommunityService;
+import cn.fyg.pg.application.ExpertService;
 import cn.fyg.pg.application.ItemService;
 import cn.fyg.pg.application.ItemchkService;
 import cn.fyg.pg.domain.community.Community;
+import cn.fyg.pg.domain.expert.Expert;
 import cn.fyg.pg.domain.item.Item;
 import cn.fyg.pg.interfaces.module.standard.dto.ItemChkCount;
 import cn.fyg.pg.interfaces.module.standard.dto.ItemChkVal;
@@ -28,6 +32,7 @@ public class StandardCtl {
 	private interface Page {
 		String  LIST = PATH + "list";
 		String ACTION = PATH+"action";
+		String MODULE = PATH+"module";
 	}
 	
 
@@ -39,6 +44,32 @@ public class StandardCtl {
 	ItemService itemService;
 	@Autowired
 	StandardAssembler standardAssembler;
+	@Autowired
+	ExpertService expertService;
+	
+	@RequestMapping(value="module/{userid}/{community_key}/{ques_key}",method=RequestMethod.GET)
+	public String toModule(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,Map<String,Object> map){
+		List<Item> parts = this.itemService.parts(ques_key);
+		Expert expert = this.expertService.find(userid);
+		
+		List<Map<String,Object>> partList=new ArrayList<Map<String,Object>>();
+		for(Item part:parts){
+			Map<String, Object> partMap = new HashMap<String,Object>();
+			partMap.put("item", part);
+			boolean hasPartcode=expert.hasPartcode(part.getCode());
+			partMap.put("hasPartcode", hasPartcode);
+			partList.add(partMap);
+		}
+		map.put("partList", partList);
+		
+		Community community = this.communityService.find(community_key);
+		map.put("community", community);
+		
+		map.put("userid", userid);
+		map.put("community_key", community_key);
+		map.put("ques_key", ques_key);
+		return Page.MODULE;
+	}
 	
 	@RequestMapping(value="list/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.GET)
 	public String toList(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,Map<String,Object> map){

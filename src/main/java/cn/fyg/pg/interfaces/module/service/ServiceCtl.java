@@ -1,4 +1,4 @@
-package cn.fyg.pg.interfaces.module.verify;
+package cn.fyg.pg.interfaces.module.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,39 +14,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fyg.pg.application.CommunityService;
 import cn.fyg.pg.application.ExpertService;
-import cn.fyg.pg.application.ItemPropService;
 import cn.fyg.pg.domain.community.Community;
-import cn.fyg.pg.domain.expert.Expert;
 import cn.fyg.pg.domain.ques.Ques;
 import cn.fyg.pg.infrastructure.persistent.QuesMapper;
 
 @Controller
-@RequestMapping("verify")
-public class VerifyCtl {
-
+@RequestMapping("service")
+public class ServiceCtl {
+	
 	@Autowired
 	ExpertService expertService;
 	@Autowired
-	QuesMapper quesMapper;
-	@Autowired
-	ItemPropService itemPropService;
-	@Autowired
 	CommunityService communityService;
+	@Autowired
+	QuesMapper quesMapper;
 	
-	@RequestMapping(value="/{userid}/{prop_key}",method=RequestMethod.GET)
+	@RequestMapping(value="community/{userid}",method=RequestMethod.GET)
 	@ResponseBody 
-	public Map<String, Object> verify(@PathVariable("userid")String userid,@PathVariable("prop_key")String prop_key){
+	public Map<String, Object> community(@PathVariable("userid")String userid){
 		Map<String,Object> map=new HashMap<String,Object>();
 		if(!this.expertService.exist(userid)){
 			map.put("result", false);
 			map.put("message", "你不是合法的系统用户。");
-			return map;
-		}
-		
-		Expert expert = this.expertService.find(userid);
-		if(!expert.hasProp(prop_key)){
-			map.put("result", false);
-			map.put("message", "你没有该模块的操作权限。");
 			return map;
 		}
 		
@@ -57,13 +46,6 @@ public class VerifyCtl {
 			return map;
 		}
 		String ques_key=ques.getKey();
-		
-		String item_code=this.itemPropService.propItemcode(ques_key, prop_key);
-		if(item_code==null){
-			map.put("result", false);
-			map.put("message", "系统没有对应模块。");
-			return map;
-		}
 		
 		List<Community> communityList = this.communityService.all();
 		if(communityList==null||communityList.isEmpty()){
@@ -76,7 +58,7 @@ public class VerifyCtl {
 		for (Community community : communityList) {
 			HashMap<String, String> dataMap = new HashMap<String,String>();
 			dataMap.put("name", community.getName());
-			dataMap.put("url", String.format("standard/list/%s/%s/%s/%s",userid,community.getKey(),ques_key,item_code));
+			dataMap.put("url", String.format("standard/module/%s/%s/%s",userid,community.getKey(),ques_key));
 			dataList.add(dataMap);
 		}
 		map.put("result", true);
