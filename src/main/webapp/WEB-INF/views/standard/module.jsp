@@ -8,38 +8,53 @@
 <%@ include file="/common/meta.jsp"%>
 <%@ include file="/common/include.jsp"%>
 <style type="text/css">
-	.li_layout{
-	    word-break:break-all;
-	    width: 50%;
-	    margin-top: 5px;
-	    float: left;
-	}
-	.div_md{
-		border: 1px solid rgba(0, 0, 0, 0.15);
-		border-radius: 0.3125em;
-		height: 100%;
-		width: 100%;
-		min-height: 60px;
-		display:inline-block;
-		padding-left:10px;
-	}
-	
+.container{
+	background-color: gray;
+}
+
+.li_md{
+	display:block;
+	float: left;
+    width: 50%;
+}
+.div_md{
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	padding: 5px;
+	min-height: 120px;
+}
+.div_md_sel{
+	background-color:#FF8080;
+	background-color: navy;
+}
+
 </style>
 </head>
 
 
 <body>
-	<h3>${community.name}</h3>
-	<ul>
-		<c:forEach var="partMap" items="${partList}">
-			<li class="li_layout" data-code="${partMap['item'].code}"  ><div class="div_md">${partMap['item'].content}</div></li>
-		</c:forEach>
-	</ul>
+	<div class="container">
+		<div class="content">
+			<h1 class="font-center font-white">${community.name}</h1>
+			<div class="font-center"><span class="font-point">00</span></div>
+		</div>
+		<div class="footer">
+			<ul>
+				<c:forEach var="partMap" items="${partList}">
+					<li class="li_md">
+						<div class="div_md font-white <c:if test="${partMap['hasPartcode']}">div_md_sel</c:if>" data-code="${partMap['item'].code}">
+						<div>${partMap['item'].content}</div>
+						<div class="font-center"><span class="font-point-small">00</span></div>
+						</div>
+					</li>
+				</c:forEach>
+			</ul>
+		</div>
+	</div>
 </body>
 
 <script type="text/javascript">
 $(function(){
-	$(".li_layout").click(function(){
+	$(".div_md_sel").click(function(){
 		goto('${ctx}/standard/list/${userid}/${community_key}/${ques_key}/'+$(this).data("code"));
 	});
 })
