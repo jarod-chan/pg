@@ -54,7 +54,38 @@ ol, ul { list-style: none; }
 	color: white;
 }
 
+/*模块颜色*/
+.md_1{
+	background-color: #e3a05c;
+}
+.md_2{
+	background-color:#b2be7e;
+}
+.md_3{
+	background-color:#726f80;
+}
+.md_4{
+	background-color:#5a3f59;
+}
+.md_total{
+	background-color:#390d31;
+}
+.magtop20{
+	margin-top: 20px;
+}
 
+.fc_1{
+	color: #e3a05c;
+}
+.fc_2{
+	color:#b2be7e;
+}
+.fc_3{
+	color:#726f80;
+}
+.fc_4{
+	color:#5a3d42;
+}
 
 
 

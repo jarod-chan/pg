@@ -17,6 +17,7 @@
 	border-top:0px;
     display:inline-block; 
     width: 100%;
+    background-color: #E0E0E0;
     margin-top: -5px;  
 }
 
@@ -25,7 +26,12 @@
 }
 
 .li_item_select{
-	background-color:#FECF78; 	
+	background-color:#390d31; 	
+	color: #FFFFFF;
+}
+
+.li_item_select .div_no{
+	color: black;
 }
 
 .li_item div{
@@ -57,9 +63,7 @@
     padding-left:5px;
     height: 40px;
 }
-.div_load{
-	 background: url("${ctx}/resources/img/ld.gif") center no-repeat;
-}
+
 
 .circle {
     height: 30px;
@@ -72,7 +76,7 @@
     position: relative;
     height: 20px;
     width: 20px;
-    background: #FECF78;
+    background: #390d31;
     border-radius: 10px;
     left: 5px;
     top: 5px;
@@ -85,9 +89,13 @@
 	<div class="container">
 		<div class="content">
 		<ul>
-			<c:forEach var="uicv" items="${userItemChkValList}" varStatus="status">
+			<c:forEach var="uicv" items="${userItemChkValList}" varStatus="status"> 
+				<c:choose>
+					<c:when test="${status.count>=10}"><c:set var="no" value="A" /></c:when>
+					<c:otherwise><c:set var="no" value="${status.count}" /></c:otherwise>
+				</c:choose>
 				<li class="li_item <c:if test="${uicv.ischeck}">li_item_select</c:if>"  data-code="${uicv.item.code}" >
-				<div class="div_no">${status.index}</div>
+				<div class="div_no">${no}</div>
 				<div class="div_content">${uicv.item.content}</div>
 				<div class="div_chk"><div class="div_circle <c:if test='${uicv.ischeck}'>circle</c:if>"><div></div></div></div>
 				</li>
@@ -98,6 +106,7 @@
 </body>
 <script type="text/javascript">
 $(function(){
+	$("#head_title").html("${item.content}");
 	$(".li_item").click(function(){
 		var li=$(this);
 		var chkdiv=li.find(".div_chk");

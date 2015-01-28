@@ -48,4 +48,10 @@ public class ItemchkTest {
 	public void saveVal(){
 		this.itemchkMapper.saveVal(1,"1.1.1");
 	}
+	
+	@Test
+	public void findpartscore(){
+		int count = this.itemchkMapper.countByQuesAndUserAndCommunityAndItem("v150116", "13857659857", "jyhy", "1");
+		H.p(count);
+	}
 }

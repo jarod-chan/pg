@@ -20,7 +20,6 @@ import cn.fyg.pg.application.ItemchkService;
 import cn.fyg.pg.domain.community.Community;
 import cn.fyg.pg.domain.expert.Expert;
 import cn.fyg.pg.domain.item.Item;
-import cn.fyg.pg.interfaces.module.standard.dto.ItemChkCount;
 import cn.fyg.pg.interfaces.module.standard.dto.ItemChkVal;
 
 
@@ -73,8 +72,9 @@ public class StandardCtl {
 	
 	@RequestMapping(value="list/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.GET)
 	public String toList(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,Map<String,Object> map){
-		List<ItemChkCount> userItemChkCountList = standardAssembler.userItemChkCount(userid, community_key, ques_key, item_code);
-		map.put("userItemChkCountList", userItemChkCountList);
+
+		List<Item> itemList =this.itemService.SonOfCode(ques_key, item_code);
+		map.put("itemList", itemList);
 		
 		Community community = this.communityService.find(community_key);
 		map.put("community", community);
@@ -89,7 +89,9 @@ public class StandardCtl {
 	}
 	
 	@RequestMapping(value="action/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.GET)
-	public String toAction(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,Map<String,Object> map){
+	public String toAction(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,Map<String,Object> map){	
+		Item item = this.itemService.find(ques_key, item_code);
+		map.put("item", item);
 		List<ItemChkVal> userItemChkValList = standardAssembler.userItemChkVal(userid, community_key, ques_key, item_code);
 		map.put("userItemChkValList", userItemChkValList);
 		

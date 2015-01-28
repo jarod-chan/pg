@@ -71,4 +71,10 @@ public class ItemchkServiceImpl implements ItemchkService {
 		}
 	}
 
+	@Override
+	public int partScore(String ques_key, String userid, String community_key,
+			String part_code) {
+		return this.itemchkMapper.countByQuesAndUserAndCommunityAndItem(ques_key,userid,community_key,part_code);
+	}
+
 }
