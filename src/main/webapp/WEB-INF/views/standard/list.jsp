@@ -42,6 +42,7 @@
 }
 .div_count{
 	width: 10%;
+	min-width: 40px;
 }
 
 .blink{
@@ -66,7 +67,7 @@
 					<li class="li_sub" data-code="${item.code}"  >
 					<div class="div_no">${status.count}</div>
 					<div class="div_content">${item.content}</div>
-					<div class="div_count"><span class="font-point-ss"></span></div>
+					<div class="div_count font-center"><span class="font-point-ss"></span></div>
 					</li>
 				</c:forEach>
 			</ul>

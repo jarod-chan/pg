@@ -15,11 +15,16 @@
     width: 50%;
 }
 .div_md{
-	border: 1px solid #E0E0E0;
+	border-bottom: 1px solid #E0E0E0;
+	border-left:1px solid #E0E0E0;
 	padding: 5px;
 	min-height: 100px;
 	font-size: 20px;
 	padding-top: 20px;
+}
+.footer{
+	margin-left: -1px;
+	margin-bottom: -1px;
 }
 
 
