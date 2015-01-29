@@ -8,135 +8,124 @@
 <%@ include file="/common/meta.jsp"%>
 <%@ include file="/common/include.jsp"%>
 <style type="text/css">
-.content{
-	padding:0px;
-	padding-top:5px;
-}
+	.row{
+		width:100%;
+		height: 50px;
+		background-color:#9e9480;
+		border-top:1px solid gray;
+	}
+	
+	.row:FIRST-CHILD{
+		border: 0px;
+	}
+	
+	
+	
+	.row .div_no,.row .div_chk,.row .div_content{
+		display:block;
+		height: 50px;
+	}
+	
+	.row .div_no{
+		line-height:50px;
+		float: left;
+		width: 50px;
+		font-size: 30px;
+		color:white;
+		text-align: center;
+		background-color: #38444e;
+	}
+	
+	.row .div_chk{
+		float: right;
+		width: 50px;
+	}
+	
+	.row .div_content{
+		padding-left: 5px;
+		overflow:hidden;
+	}
+	
+	.row_select {
+		background-color:#38444e; 	
+		color: #FFFFFF;
+	}
+	.row_select .div_no{
+		color: #ea4424;
+	}
+	.row_select  .circle div {
+		background-color:#38444e;
+	}
+	/*------------------------------*/
+	.circle {
+		margin:0 auto;
+		margin-top:10px;
+	    height: 30px;
+	    width: 30px;
+	    border-radius: 15px;
+	    background: #ea4424;
+	}
+	
+	.circle div {
+	    position: relative;
+	    height: 20px;
+	    width: 20px;
+	    background: #9e9480;
+	    border-radius: 10px;
+	    left: 5px;
+	    top: 5px;
+	}
+	
 
-.li_cmt{
-	width: 100%;
-    background-color: #E0E0E0;
-    margin-top: -5px;  
-    height: 147px;
-    border-bottom: 6px solid white;
-}
-.li_cmt div{
- 	float:left;
-	display: block;
-}
-.li_cmt .cmt_no{
-	line-height:147px;
-	height: 147px;
-	width: 10%;
-	background-color: gray;
-	text-align: center;
-	color:purple;
-}
-.li_cmt .cmt{
-	padding-left:5px;
-	width: 75%;
-	overflow:hidden;
-	height:147px;
-}
-
-
-
-.li_item{
-	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-    display:inline-block; 
-    width: 100%;
-    background-color: #E0E0E0;
-    margin-top: -5px;  
-}
-
-.li_item:FIRST-CHILD{
-	border-top: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.li_item_select{
-	background-color:#390d31; 	
-	color: #FFFFFF;
-}
-
-.li_item_select .div_no{
-	color: black;
-}
-
-.li_item div{
- 	float:left;
-	display: block;
-}
-.div_no{
-	line-height:50px;
-	height: 50px;
-	width: 10%;
-	font-size: 30px;
-	color:white;
-	text-align: center;
-	background-color: gray;
-}
-.div_content{
-	padding-left:5px;
-	width: 75%;
-	overflow:hidden;
-	height:50px;
-	max-height: 50px;
-}
-.div_chk{
-	width: 10%;
-	color: red;
-	font-size: 50px;
-    font-family: SimHei;
-    padding-top:10px;
-    padding-left:5px;
-    height: 40px;
-}
-
-
-.circle {
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-    background: red;
-}
-
-.circle div {
-    position: relative;
-    height: 20px;
-    width: 20px;
-    background: #390d31;
-    border-radius: 10px;
-    left: 5px;
-    top: 5px;
-}
-
-
+	.row .div_chk .times{
+		height:50px;
+		line-height:50px;
+		font-size: 50px;
+		color:white;
+		text-align: center;
+		margin-top: -5px;
+		font-weight: 900;
+	}
+	
+	/*-----------------------------------*/
+	.cmt{
+		background-color:#38444e;
+		width:100%;
+	}	
+	.cmt .cmt_content{
+		border-top:1px dashed gray;
+		margin-left:50px;
+		padding-left:5px;
+		padding-right:50px;
+		min-height: 50px;
+		background-color:#9e9480;
+	}
+	/*----*/
+	.none{
+		display: none;
+	}
+	
 </style>
 </head>
 <body>
-	<div class="container">
-		<div class="content">
-		<ul>
-			<c:forEach var="uicv" items="${userItemChkValList}" varStatus="status"> 
-				<c:choose>
-					<c:when test="${status.count>=10}"><c:set var="no" value="A" /></c:when>
-					<c:otherwise><c:set var="no" value="${status.count}" /></c:otherwise>
-				</c:choose>
-				<li class="li_item <c:if test="${uicv.ischeck}">li_item_select</c:if>"  data-code="${uicv.item.code}"  >
-				<div class="div_no">${no}</div>
-				<div class="div_content" data-cmt="${uicv.iscomment}">${uicv.item.content}</div>
-				<div class="div_chk"><div class="div_circle <c:if test='${uicv.ischeck}'>circle</c:if>"><div></div></div></div>
-				</li>
-				<c:if test="${uicv.iscomment}">
-				<li class="li_cmt">
-					<div class="cmt_no">注</div>
-					<div class="cmt">${uicv.comment}</div>
-				</li>
-				</c:if>
-			</c:forEach>
-		</ul>
-		</div>
+<div class="ct">
+<c:forEach var="uicv" items="${userItemChkValList}" varStatus="status"> 
+	<c:choose>
+		<c:when test="${status.count>=10}"><c:set var="no" value="A" /></c:when>
+		<c:otherwise><c:set var="no" value="${status.count}" /></c:otherwise>
+	</c:choose>
+	<div class="row <c:if test="${uicv.ischeck}">row_select</c:if>"  data-code="${uicv.item.code}"  >
+		<div class="div_no">${no}</div>
+		<div class="div_chk"><div class="circle <c:if test='${!uicv.ischeck}'>none</c:if>"><div></div></div> <div class="times <c:if test='${uicv.ischeck}'>none</c:if>">&times;</div> </div>
+		<div class="div_content" data-cmt="${uicv.iscomment}">${uicv.item.content}</div>
 	</div>
+	<c:if test="${uicv.iscomment}">
+	<div class="cmt none">
+		<div class="cmt_content">${uicv.comment}</div>
+	</div>
+	</c:if>
+</c:forEach>	
+</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -146,32 +135,33 @@ $(function(){
 		var div=$(this);
 		var iscomment=div.data("cmt"); 
 		if(iscomment){
-			var licmt=div.parent().next();
-			licmt.toggle();
+			var lidiv=div.parent().next();
+			lidiv.toggle();
 		}
 	})
 	
-	$(".li_item").click(function(){
-		var li=$(this);
-		var chkdiv=li.find(".div_chk");
+	$(".div_chk").click(function(){
+		var chkdiv=$(this);
 		if(chkdiv.hasClass("div_load")){
 			return;
 		}else{
-			li.find(".div_circle").removeClass("circle");
+			chkdiv.find(".circle,.times").hide();
 			chkdiv.addClass("div_load");
 		}
 	  	
-		var item_code=li.data("code");
-	  	if(li.hasClass("li_item_select")){
+		var row=chkdiv.parent();
+		var item_code=row.data("code");
+	  	if(row.hasClass("row_select")){
 	  	  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'remove'},function(){	
-	  		  li.removeClass("li_item_select"); 
+	  		  row.removeClass("row_select"); 
 	  		  chkdiv.removeClass("div_load");
+	  		  chkdiv.find(".times").show();
 	  	  });
 	  	}else{
   		  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'add'},function(){	
-  			li.addClass("li_item_select"); 
-  			li.find(".div_circle").addClass("circle");
+  			row.addClass("row_select"); 
   			chkdiv.removeClass("div_load");
+  			chkdiv.find(".circle").show();
   	      });
 	  	}
 	});

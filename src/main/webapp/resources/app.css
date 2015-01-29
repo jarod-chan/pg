@@ -32,20 +32,20 @@ ol, ul { list-style: none; }
 }
 
 .font-point{
-	color:red;
+	color:#ea4424;
     font-size: 99px;
     font-family: SimHei;
     font-weight: bolder;
 }
 
 .font-point-small{
-	color: red;
+	color: #ea4424;
     font-size: 55px;
     font-family: SimHei;
 }
 
 .font-point-ss{
-	color: red;
+	color: #ea4424;
     font-size: 30px;
     font-family: SimHei;
 }
@@ -56,19 +56,20 @@ ol, ul { list-style: none; }
 
 /*模块颜色*/
 .md_1{
-	background-color: #e3a05c;
+	background-color:#9e9480;
 }
 .md_2{
-	background-color:#b2be7e;
+	background-color:#38444e;
 }
 .md_3{
-	background-color:#726f80;
+	background-color:#38444e;
 }
 .md_4{
-	background-color:#5a3f59;
+	background-color:#9e9480;
 }
+
 .md_total{
-	background-color:#390d31;
+	background-color:#d3b687;
 }
 .magtop20{
 	margin-top: 20px;
