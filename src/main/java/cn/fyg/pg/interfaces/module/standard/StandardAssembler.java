@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 
 import cn.fyg.pg.application.ItemService;
 import cn.fyg.pg.application.ItemchkService;
+import cn.fyg.pg.application.ItemcmtService;
 import cn.fyg.pg.domain.item.Item;
 import cn.fyg.pg.domain.itemchk.Itemchk;
-import cn.fyg.pg.interfaces.module.standard.dto.ItemChkCount;
+import cn.fyg.pg.domain.itemcmt.Itemcmt;
 import cn.fyg.pg.interfaces.module.standard.dto.ItemChkVal;
 
 @Component
@@ -23,63 +24,49 @@ class StandardAssembler {
 	ItemService itemService;
 	@Autowired
 	ItemchkService itemchkService;
+	@Autowired
+	ItemcmtService itemcmtService;
 	
-	public List<ItemChkCount> userItemChkCount(String userid,String community_key,String ques_key,String item_code){
-		String part_code=StringUtils.split(item_code,".")[0];
-		List<Item> sonItemList = itemService.SonOfCode(ques_key, part_code);
-		
-		Itemchk itemchk=itemchkService.userCheck(ques_key, userid, community_key, part_code);
-		List<String> itemchkval=new ArrayList<String>();
-		if(itemchk!=null&&itemchk.getVal()!=null){
-			itemchkval=itemchk.getVal();
-		}
-		
-		Map<String,Integer> level2count=new HashMap<String,Integer>();
-		for (String chk_code : itemchkval) {
-			String level2code=StringUtils.substringBeforeLast(chk_code, ".");
-			Integer count=level2count.get(level2code);
-			if(count!=null){
-				level2count.put(level2code, count+1);
-			}else{
-				level2count.put(level2code, 1);
-			}
-		}
-		
-		List<ItemChkCount> itemChkCountList = new ArrayList<ItemChkCount>();
-		for (Item item : sonItemList) {
-			ItemChkCount itemChkCount = new ItemChkCount();
-			itemChkCount.setItem(item);
-			itemChkCount.setCount(0);
-			
-			String thisItemCode=item.getCode();
-			Integer count=level2count.get(thisItemCode);
-			if(count!=null){
-				itemChkCount.setCount(count);
-			}
-			itemChkCountList.add(itemChkCount);
-		}
-		return itemChkCountList;
-	}
 	
 	public List<ItemChkVal> userItemChkVal(String userid,String community_key,String ques_key,String item_code){
-		List<Item> sonItemList = itemService.SonOfCode(ques_key, item_code);
+		//问题内容
+		List<Item> sonItemList = this.itemService.SonOfCode(ques_key, item_code);
 		String part_code=StringUtils.split(item_code,".")[0];
 		
-		Itemchk itemchk=itemchkService.userCheck(ques_key, userid, community_key, part_code);
+		//问题答案
+		Itemchk itemchk=this.itemchkService.userCheck(ques_key, userid, community_key, part_code);
 		List<String> itemchkval=new ArrayList<String>();
 		if(itemchk!=null&&itemchk.getVal()!=null){
 			itemchkval=itemchk.getVal();
+		}
+		
+		//问题注释
+		List<Itemcmt> itemComment = this.itemcmtService.itemComment(ques_key, item_code);
+		Map<String,String> codeCommentMap = new HashMap<String,String>();
+		if(itemComment!=null&&!itemComment.isEmpty()){			
+			for (Itemcmt itemcmt:itemComment) {
+				codeCommentMap.put(itemcmt.getItem_code(), itemcmt.getItemcmt());
+			}
 		}
 		
 		List<ItemChkVal> itemchkvalList = new ArrayList<ItemChkVal>();
 		for(Item item:sonItemList){
 			ItemChkVal itemChkVal = new ItemChkVal();
 			itemChkVal.setItem(item);
-			if(itemchkval.contains(item.getCode())){				
+			String thisItemCode = item.getCode();
+			if(itemchkval.contains(thisItemCode)){				
 				itemChkVal.setIscheck(true);
 			}else{
 				itemChkVal.setIscheck(false);
 			}
+			String comment=codeCommentMap.get(thisItemCode);
+			if(comment!=null){
+				itemChkVal.setIscomment(true);
+				itemChkVal.setComment(comment);
+			}else{
+				itemChkVal.setIscomment(false);
+			}
+			
 			itemchkvalList.add(itemChkVal);
 		}
 		return itemchkvalList;

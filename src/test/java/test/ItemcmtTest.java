@@ -9,21 +9,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import test.common.H;
-import cn.fyg.pg.domain.item.Item;
-import cn.fyg.pg.infrastructure.persistent.ItemMapper;
+
+import cn.fyg.pg.domain.itemcmt.Itemcmt;
+import cn.fyg.pg.infrastructure.persistent.ItemcmtMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
-public class ItemTest {
-	@Autowired
-	ItemMapper itemMapper;
+public class ItemcmtTest {
 	
+	@Autowired
+	ItemcmtMapper itemcmtMapper;
 	
 	@Test
-	public void findByCodeAndLevel(){
-		List<Item> all = itemMapper.findByQuesAndCodeAndLevel("v150116","1.1", "3");
-		for (Item item : all) {
-			H.p(item);
+	public void findByQuesAndCode(){
+		List<Itemcmt> list = this.itemcmtMapper.findByQuesAndCode("v150116", "1.3");
+		for (Itemcmt itemcmt : list) {
+			H.p(itemcmt);
 		}
 	}
+
 }
