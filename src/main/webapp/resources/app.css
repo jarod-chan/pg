@@ -54,6 +54,13 @@ ol, ul { list-style: none; }
 	color: white;
 }
 
+.font-typea{
+	color: #9e9480;
+}
+.font-typeb{
+	color: #38444e;
+}
+
 /*模块颜色*/
 .md_1{
 	background-color:#9e9480;

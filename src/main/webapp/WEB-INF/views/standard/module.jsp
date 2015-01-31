@@ -8,26 +8,57 @@
 <%@ include file="/common/meta.jsp"%>
 <%@ include file="/common/include.jsp"%>
 <style type="text/css">
-
+.container
+{
+	
+}
 .li_md{
 	display:block;
 	float: left;
     width: 50%;
 }
 .div_md{
-	border-bottom: 1px solid #E0E0E0;
-	border-left:1px solid #E0E0E0;
 	padding: 5px;
 	min-height: 100px;
 	font-size: 20px;
 	padding-top: 20px;
 }
 .footer{
-	margin-left: -1px;
+	margin-left: 0px;
 	margin-bottom: -1px;
 }
 
 
+
+.content{
+	margin:0 auto;
+	width: 300px;
+}
+
+.content .backimg{
+	height:252px;
+	background: url("${ctx}/resources/img/2circle.png") no-repeat -20px -20px;
+ 	-moz-background-size:340px;  
+    background-size:340px ;    
+}
+
+.divscore .score_a{
+	margin-top:-220px;
+	float:left;
+	width: 50%;
+}
+
+.divscore .score_b{
+	margin-top:-140px;
+	float:right;
+	width: 50%;
+}
+.content .divcommunity{
+	width: 140px;
+	float: right;
+	margin-top: 20px;
+	font-size: 25px;
+}
 
 </style>
 </head>
@@ -36,9 +67,23 @@
 <body>
 	<div class="container md_total">
 		<div class="content">
-			<h1 class="font-center font-white">${community.name}</h1>
-			<div class="font-center magtop20"><span class="font-point md_s_total"></span></div>
+			<div class="divcommunity font-center">${community.name}</div>
+			<div class="backimg"></div>
+			<div class="divscore">
+				<div class="score_a">
+					<div class="font-center font-typea">加权分值</div>
+					<div class="font-center"><span class="font-point-small">00.00</span></div>
+				</div>
+				<div class="score_b">
+					<div  class="font-center font-typeb">累积分值</div>
+					<div class="font-center"><span class="font-point-small md_s_total"></span></div>
+				</div>
+			</div>
+			
 		</div>
+		
+		
+		
 		<div class="footer">
 			<ul>
 				<c:forEach var="partMap" items="${partList}">

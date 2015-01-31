@@ -152,17 +152,17 @@ $(function(){
 		var row=chkdiv.parent();
 		var item_code=row.data("code");
 	  	if(row.hasClass("row_select")){
-	  	  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'remove'},function(){	
+	  	   $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'remove'},function(){	
 	  		  row.removeClass("row_select"); 
 	  		  chkdiv.removeClass("div_load");
 	  		  chkdiv.find(".times").show();
-	  	  });
+	  	   }); 
 	  	}else{
-  		  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'add'},function(){	
+   		  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'add'},function(){	
   			row.addClass("row_select"); 
   			chkdiv.removeClass("div_load");
   			chkdiv.find(".circle").show();
-  	      });
+  	      }); 
 	  	}
 	});
 })
