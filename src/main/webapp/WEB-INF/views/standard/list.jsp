@@ -46,45 +46,7 @@
 		background-color: #38444e;
 		color:white;
 	}
-/*
-.li_sub{
-	border: 1px solid rgba(0, 0, 0, 0.15);
-    display:inline-block;
-    word-break:break-all;
-    width: 100%;
-    margin-bottom: -5px;
-    border-top:0px;
-    background-color: #E0E0E0;
-}
 
-.li_sub:FIRST-CHILD{
-	border-top:1px solid rgba(0, 0, 0, 0.15);
-}
-
-.li_sub div{
- 	float:left;
-	display: block;
-	height:50px;   
-  	line-height:50px
-}
-.div_no{
-	width: 10%;
-	font-size: 30px;
-	text-align: center;
-	background-color: gray;
-	color: white;
-}
-.div_content{
-	padding-left:5px;
-	width: 75%;
-}
-.div_count{
-	width: 10%;
-	min-width: 40px;
-}
-
-
-*/
 </style>
 </head>
 
