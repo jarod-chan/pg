@@ -4,5 +4,5 @@
 <script src='${ctx}/resources/fastclick.min.js'></script>
 <script type="text/javascript">
 	$(function() {FastClick.attach(document.body);}); function goto(url){window.open(url,"_self");}//window.location.replace(url);
-	$.ajaxSetup({timeout:6000,error:function(){alert("请求超时，请检查网络连接");}});
+	$.ajaxSetup({timeout:8000,error:function(){alert("请求超时，请检查网络连接");}});
 </script> 
