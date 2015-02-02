@@ -13,8 +13,6 @@ public class Itemchk {
 	
 	private String userid;
 	
-	private String item_code;
-	
 	private int id;
 	
 	private List<String> val;
@@ -41,14 +39,6 @@ public class Itemchk {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
-	}
-
-	public String getItem_code() {
-		return item_code;
-	}
-
-	public void setItem_code(String item_code) {
-		this.item_code = item_code;
 	}
 
 	public int getId() {

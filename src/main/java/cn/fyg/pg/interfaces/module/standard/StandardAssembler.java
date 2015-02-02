@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +30,9 @@ class StandardAssembler {
 	public List<ItemChkVal> userItemChkVal(String userid,String community_key,String ques_key,String item_code){
 		//问题内容
 		List<Item> sonItemList = this.itemService.SonOfCode(ques_key, item_code);
-		String part_code=StringUtils.split(item_code,".")[0];
 		
 		//问题答案
-		Itemchk itemchk=this.itemchkService.userCheck(ques_key, userid, community_key, part_code);
+		Itemchk itemchk=this.itemchkService.userCheck(ques_key, userid, community_key);
 		List<String> itemchkval=new ArrayList<String>();
 		if(itemchk!=null&&itemchk.getVal()!=null){
 			itemchkval=itemchk.getVal();

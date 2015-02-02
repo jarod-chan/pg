@@ -102,13 +102,6 @@ public class StandardCtl {
 		return Page.ACTION;
 	}
 	
-	@RequestMapping(value="save/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.POST)
-	public String save(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,String[] val){
-		String part_code=StringUtils.split(item_code,".")[0];
-		itemchkService.saveUserCheck(ques_key, userid, community_key, part_code, val);
-		return String.format("redirect:/standard/list/%s/%s/%s/%s", userid,community_key,ques_key,part_code);
-	}
-	
 	@RequestMapping(value="toggle/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.POST)
 	@ResponseBody
 	public boolean toggle(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,String val,String action){

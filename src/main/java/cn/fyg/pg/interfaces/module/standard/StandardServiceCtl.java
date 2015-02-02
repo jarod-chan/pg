@@ -57,7 +57,7 @@ public class StandardServiceCtl {
 		String part_code=StringUtils.split(item_code,".")[0];
 		List<Item> sonItemList = itemService.SonOfCode(ques_key, part_code);
 		
-		Itemchk itemchk=itemchkService.userCheck(ques_key, userid, community_key, part_code);
+		Itemchk itemchk=itemchkService.userCheck(ques_key, userid, community_key);
 		List<String> itemchkval=new ArrayList<String>();
 		if(itemchk!=null&&itemchk.getVal()!=null){
 			itemchkval=itemchk.getVal();

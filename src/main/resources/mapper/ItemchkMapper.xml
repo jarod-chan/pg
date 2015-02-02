@@ -4,8 +4,8 @@
 
 <mapper namespace="cn.fyg.pg.infrastructure.persistent.ItemchkMapper">
 	
-	<select id="findByQuesAndUserAndCommunityAndItem" resultMap="ItemchkWithVal">
-		select * from itemchk where ques_key=#{ques_key} and userid=#{userid} and community_key=#{community_key} and item_code=#{item_code}
+	<select id="findByQuesAndUserAndCommunity" resultMap="ItemchkWithVal">
+		select * from itemchk where ques_key=#{ques_key} and userid=#{userid} and community_key=#{community_key} 
 	</select>
 	<resultMap type="Itemchk" id="ItemchkWithVal">
 		<id property="id" column="id" />
@@ -17,27 +17,24 @@
 	
 	
 	<insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="Itemchk">  
-	   insert into itemchk (ques_key,community_key,userid,item_code) 
-	   values (#{ques_key},#{community_key},#{userid},#{item_code})
+	   insert into itemchk (ques_key,community_key,userid) 
+	   values (#{ques_key},#{community_key},#{userid})
 	</insert>  
 	
 	<delete id="deleteVal" >
 		delete from itemval
-		where itemchk_id=#{itemchk_id}
-	</delete>
-	
-	<delete id="deleteOneVal" >
-		delete from itemval
 		where itemchk_id=#{itemchk_id} and  item_code=#{item_code}
 	</delete>
 	
-	<insert id="saveVal"  keyProperty="id" >  
+	<insert id="insertVal"  keyProperty="id" >  
 	  insert into itemval (itemchk_id,item_code) 
 	  values (#{itemchk_id},#{item_code})
 	</insert>  
 	
 	<select id="countByQuesAndUserAndCommunityAndItem" resultType="int">
-		select count(item_code) from itemval where itemval.itemchk_id=(select id from itemchk where ques_key=#{ques_key} and userid=#{userid} and community_key=#{community_key} and item_code=#{item_code})
+		select count(item_code) from itemval 
+		where itemval.itemchk_id=(select id from itemchk where ques_key=#{ques_key} and userid=#{userid} and community_key=#{community_key}) 
+		and item_code like '${item_code}.%'
 	</select>
 	
 </mapper>

@@ -15,66 +15,43 @@ public class ItemchkServiceImpl implements ItemchkService {
 	ItemchkMapper itemchkMapper;
 	
 	@Override
-	public Itemchk userCheck(String ques_key, String userid,
-			String community_key, String part_code) {
-		return this.itemchkMapper.findByQuesAndUserAndCommunityAndItem(ques_key, userid, community_key, part_code);
+	public Itemchk userCheck(String ques_key, String userid,String community_key) {
+		return this.itemchkMapper.findByQuesAndUserAndCommunity(ques_key, userid, community_key);
 	}
 
+
 	@Override
-	@Transactional
-	public void saveUserCheck(String ques_key, String userid,
-			String community_key, String part_code, String[] val) {
-		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunityAndItem(ques_key, userid, community_key, part_code);
-		if(itemchk==null){
-			itemchk=new Itemchk();
-			itemchk.setQues_key(ques_key);
-			itemchk.setUserid(userid);
-			itemchk.setCommunity_key(community_key);
-			itemchk.setItem_code(part_code);
-			this.itemchkMapper.save(itemchk);
-		}
-		
-		int itemchk_id=itemchk.getId();
-		this.itemchkMapper.deleteVal(itemchk_id);
-		if(val!=null&&val.length>0){
-			for (String item_code : val) {
-				this.itemchkMapper.saveVal(itemchk_id, item_code);
-			}
-		}
+	public int partScore(String ques_key, String userid, String community_key,
+			String part_code) {
+		return this.itemchkMapper.countByQuesAndUserAndCommunityAndItem(ques_key,userid,community_key,part_code);
 	}
+
 
 	@Override
 	@Transactional
 	public void addUserCheck(String ques_key, String userid,
 			String community_key, String part_code, String val) {
-		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunityAndItem(ques_key, userid, community_key, part_code);
+		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunity(ques_key, userid, community_key);
 		if(itemchk==null){
 			itemchk=new Itemchk();
 			itemchk.setQues_key(ques_key);
 			itemchk.setUserid(userid);
 			itemchk.setCommunity_key(community_key);
-			itemchk.setItem_code(part_code);
 			this.itemchkMapper.save(itemchk);
 		}
 		int itemchk_id=itemchk.getId();
-		this.itemchkMapper.saveVal(itemchk_id, val);
+		this.itemchkMapper.insertVal(itemchk_id, val);
 	}
 
 	@Override
 	@Transactional
 	public void removeUserCheck(String ques_key, String userid,
 			String community_key, String part_code, String val) {
-		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunityAndItem(ques_key, userid, community_key, part_code);
+		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunity(ques_key, userid, community_key);
 		if(itemchk!=null){
 			int itemchk_id=itemchk.getId();
-			this.itemchkMapper.deleteOneVal(itemchk_id, val);
+			this.itemchkMapper.deleteVal(itemchk_id, val);
 		}
-	}
-
-	@Override
-	public int partScore(String ques_key, String userid, String community_key,
-			String part_code) {
-		return this.itemchkMapper.countByQuesAndUserAndCommunityAndItem(ques_key,userid,community_key,part_code);
 	}
 
 }

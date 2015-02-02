@@ -20,7 +20,7 @@ public class ItemchkTest {
 	
 	@Test
 	public void findItemchk(){
-		Itemchk itemchk = itemchkMapper.findByQuesAndUserAndCommunityAndItem("v150116", "13857659857", "jyhy", "1");
+		Itemchk itemchk = itemchkMapper.findByQuesAndUserAndCommunity("v150116", "13857659857", "jyhy");
 		H.p(itemchk);
 		for (String val : itemchk.getVal()) {
 			System.out.println(val);
@@ -33,20 +33,14 @@ public class ItemchkTest {
 		itemchk.setQues_key("v150116");
 		itemchk.setCommunity_key("jyhy");
 		itemchk.setUserid("13857659857");
-		itemchk.setItem_code("2");
 		int ret = this.itemchkMapper.save(itemchk);
 		System.out.println(ret);
 		H.p(itemchk);
 	}
 	
 	@Test
-	public void deleteVal(){
-		this.itemchkMapper.deleteVal(1);
-	}
-
-	@Test
 	public void saveVal(){
-		this.itemchkMapper.saveVal(1,"1.1.1");
+		this.itemchkMapper.insertVal(1,"1.1.1");
 	}
 	
 	@Test
