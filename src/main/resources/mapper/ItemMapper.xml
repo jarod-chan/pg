@@ -5,7 +5,7 @@
 <mapper namespace="cn.fyg.pg.infrastructure.persistent.ItemMapper">
 	
 	<select id="findByQuesAndCodeAndLevel" resultType="Item">
-		select * from item where ques_key=#{ques_key} and code like '${code}%' and level=#{level} order by code
+		select * from item where ques_key=#{ques_key} and code like '${code}%' and level=#{level} order by length(code),code
 	</select>
 	
 	<select id="find" resultType="Item">
@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="findByQuesAndLevel" resultType="Item">
-		select * from item where ques_key=#{ques_key} and level=#{level} order by code
+		select * from item where ques_key=#{ques_key} and level=#{level} order by length(code),code
 	</select>
 
 </mapper>
