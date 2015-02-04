@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.fyg.pg.infrastructure.persistent.ItemcmtMapper">
+	
+	<select id="findByQuesAndCode" resultType="Itemcmt">
+		select * from itemcmt where ques_key=#{ques_key} and item_code like '${item_code}.%'
+	</select>
+
+</mapper>

@@ -1,0 +1,99 @@
+html,body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0; padding: 0; }
+html,body {
+  background: #ffffff;
+  color: #333333;
+  font-size: 18px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100%;
+  width: 100%;
+}
+ol, ul { list-style: none; }
+
+.container {
+	height: 100%;
+	width:100%;
+	position: relative;
+}
+
+.content {
+	padding: 10px;
+	padding-bottom: 0px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #FFFFFF;
+}
+
+.font-center{
+	text-align: center;
+}
+
+.font-point{
+	color:#ea4424;
+    font-size: 99px;
+    font-family: SimHei;
+    font-weight: bolder;
+}
+
+.font-point-small{
+	color: #ea4424;
+    font-size: 55px;
+    font-family: SimHei;
+}
+
+.font-point-ss{
+	color: #ea4424;
+    font-size: 30px;
+    font-family: SimHei;
+}
+
+.font-white{
+	color: white;
+}
+
+.font-typea{
+	color: #9e9480;
+}
+.font-typeb{
+	color: #38444e;
+}
+
+/*模块颜色*/
+.md_1{
+	background-color:#9e9480;
+}
+.md_2{
+	background-color:#38444e;
+}
+.md_3{
+	background-color:#38444e;
+}
+.md_4{
+	background-color:#9e9480;
+}
+
+.md_total{
+	background-color:#d3b687;
+}
+.magtop20{
+	margin-top: 20px;
+}
+
+.fc_1{
+	color: #e3a05c;
+}
+.fc_2{
+	color:#b2be7e;
+}
+.fc_3{
+	color:#726f80;
+}
+.fc_4{
+	color:#5a3d42;
+}
+
+
+
