@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="countByQuesAndUserAndCommunityAndItem" resultType="int">
-		select sum(val) from itemval 
+		select ifnull(sum(val),0) from itemval 
 		where itemval.itemchk_id=(select id from itemchk where ques_key=#{ques_key} and userid=#{userid} and community_key=#{community_key}) 
 		and item_code like '${item_code}.%'
 	</select>

@@ -10,7 +10,7 @@ public class ItemChkVal {
 	
 	private String comment;
 
-	private int val;
+	private Integer val;
 
 	public Item getItem() {
 		return item;
@@ -20,11 +20,12 @@ public class ItemChkVal {
 		this.item = item;
 	}
 
-	public int getVal() {
+	
+	public Integer getVal() {
 		return val;
 	}
 
-	public void setVal(int val) {
+	public void setVal(Integer val) {
 		this.val = val;
 	}
 

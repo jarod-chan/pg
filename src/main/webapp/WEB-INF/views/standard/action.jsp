@@ -51,8 +51,8 @@
 		overflow:hidden;
 	}
 	
+
  	.row .div_sel{
- 		width:100%;
 		position:absolute; 
 		margin-top:-50px;
 		right:0px;
@@ -60,7 +60,13 @@
 	    font-size: 30px;
 	    text-align: center;
 	    font-family: SimHei;
+	    background-color:#9e9480;
 	} 
+	
+	.row .row_select{
+		background-color:  #38444e;
+	}
+	
 	
 	.row .div_sel .selop{
 		float:right;
@@ -68,7 +74,6 @@
 		width:50px;
 		height: 50px;
 		line-height: 50px;
-		background-color: #9e9480;
 		border-left: 1px solid gray;
 	}
 	
@@ -101,6 +106,7 @@
 		display: none;
 	}
 	
+	
 </style>
 </head>
 <body>
@@ -110,11 +116,15 @@
 		<c:when test="${status.count>=10}"><c:set var="no" value="A" /></c:when>
 		<c:otherwise><c:set var="no" value="${status.count}" /></c:otherwise>
 	</c:choose>
-	<div class="row "  data-code="${uicv.item.code}"  >
+	<c:choose>
+		<c:when test="${uicv.val!=null}"><c:set var="val" value="${uicv.val}" /></c:when>
+		<c:otherwise><c:set var="val" value="&times;" /></c:otherwise>
+	</c:choose>
+	<div class="row  <c:if test='${uicv.val!=null}'>row_select</c:if>"  data-code="${uicv.item.code}"  >
 		<div class="div_no">${no}</div>
-		<div class="div_chk">${uicv.val}</div>
+		<div class="div_chk">${val}</div>
 		<div class="div_content" data-cmt="${uicv.iscomment}">${uicv.item.content}</div>
-		<div class="div_sel none">
+		<div class="div_sel <c:if test='${uicv.val!=null}'>row_select</c:if> none">
 			<c:forEach var="s"  begin="0" end="4" >
 				<div class="selop  <c:if test="${uicv.val==4-s}">selchk</c:if>">${4-s}</div>
 			</c:forEach>
@@ -133,6 +143,7 @@ $(function(){
 	$("#head_title").html("${item.content}");
 	$(".div_content").click(function(event){
 		event.stopPropagation();
+		$(".div_sel").hide();
 		var div=$(this);
 		var iscomment=div.data("cmt"); 
 		if(iscomment){
@@ -150,23 +161,32 @@ $(function(){
 		
 		var row=selop.parent().parent();
 		var div_chk=row.find(".div_chk");
-		var selopval=selop.html();		
+		var div_sel=row.find(".div_sel");
+		var oldval=div_chk.html();
+		var selopval=selop.html();	
 		var item_code=row.data("code");	
 		div_chk.html('').addClass("div_load");
-		selop.parent().hide();
+		div_sel.hide();
 		$.post('${ctx}/standard/service/save/${userid}/${community_key}/${ques_key}',{item_code:item_code,val:selopval},function(){	
 	  		row.find(".selchk").removeClass('selchk');
 	  		div_chk.html(selopval);
+	  		row.addClass("row_select");
+	  		div_sel.addClass("row_select");//选中修改背景色
 	  		selop.addClass("selchk");
 		})
 		.complete(function(){
-			div_chk.removeClass("div_load")
+			div_chk.removeClass("div_load");
+		})
+		.error(function(){
+			div_chk.html(oldval);//恢复原值
 		})
 	
 	});
 	
-	$(".div_chk").click(function(){
-		$(this).next().next().show();
+	$(".div_chk").click(function(event){
+		event.stopPropagation();
+		$(".div_sel").hide();
+		$(this).parent().find(".div_sel").show();
 	});
 })
 </script>

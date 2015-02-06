@@ -58,9 +58,8 @@ class StandardAssembler {
 			Integer val = itemvalMap.get(thisItemCode);
 			if(val!=null){				
 				itemChkVal.setVal(val);
-			}else{
-				itemChkVal.setVal(Integer.valueOf(0));
 			}
+			
 			String comment=codeCommentMap.get(thisItemCode);
 			if(comment!=null){
 				itemChkVal.setIscomment(true);
