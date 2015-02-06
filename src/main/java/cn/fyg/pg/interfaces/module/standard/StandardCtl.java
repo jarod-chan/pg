@@ -5,13 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.fyg.pg.application.CommunityService;
 import cn.fyg.pg.application.ExpertService;
@@ -100,19 +98,6 @@ public class StandardCtl {
 		map.put("ques_key", ques_key);
 		map.put("item_code", item_code);
 		return Page.ACTION;
-	}
-	
-	@RequestMapping(value="toggle/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.POST)
-	@ResponseBody
-	public boolean toggle(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code,String val,String action){
-		String part_code=StringUtils.split(item_code,".")[0];
-		if(action.equals("add")){
-			this.itemchkService.addUserCheck(ques_key, userid, community_key, part_code, val);
-		}
-		if(action.equals("remove")){
-			this.itemchkService.removeUserCheck(ques_key, userid, community_key, part_code, val);
-		}
-		return true;
 	}
 
 }

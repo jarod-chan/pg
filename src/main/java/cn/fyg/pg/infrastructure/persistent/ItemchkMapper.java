@@ -15,7 +15,11 @@ public interface ItemchkMapper {
 
 	public int save(Itemchk itemchk);
 	
-	public int insertVal(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code);
+	public int insertVal(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code,@Param("val")int val);
+	
+	public void updateVal(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code,@Param("val")int val);
+	
+	public boolean exits(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code);
 
 	public void deleteVal(@Param("itemchk_id") int itemchk_id,@Param("item_code")String item_code);
 	
@@ -24,5 +28,6 @@ public interface ItemchkMapper {
 			@Param("userid") String userid,
 			@Param("community_key") String community_key,
 			@Param("item_code") String item_code);
+
 
 }

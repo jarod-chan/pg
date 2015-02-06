@@ -10,7 +10,7 @@ public class ItemChkVal {
 	
 	private String comment;
 
-	private boolean ischeck;
+	private int val;
 
 	public Item getItem() {
 		return item;
@@ -20,12 +20,12 @@ public class ItemChkVal {
 		this.item = item;
 	}
 
-	public boolean isIscheck() {
-		return ischeck;
+	public int getVal() {
+		return val;
 	}
 
-	public void setIscheck(boolean ischeck) {
-		this.ischeck = ischeck;
+	public void setVal(int val) {
+		this.val = val;
 	}
 
 	public boolean isIscomment() {

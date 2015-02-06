@@ -19,6 +19,7 @@ import cn.fyg.pg.application.ItemchkService;
 import cn.fyg.pg.domain.expert.Expert;
 import cn.fyg.pg.domain.item.Item;
 import cn.fyg.pg.domain.itemchk.Itemchk;
+import cn.fyg.pg.domain.itemchk.Itemval;
 
 @Controller
 @RequestMapping("standard/service")
@@ -53,24 +54,24 @@ public class StandardServiceCtl {
 	
 	@RequestMapping(value="itemscore/{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Map<String, Object>> toList(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code){
+	public List<Map<String, Object>> itemscore(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,@PathVariable("item_code")String item_code){
 		String part_code=StringUtils.split(item_code,".")[0];
 		List<Item> sonItemList = itemService.SonOfCode(ques_key, part_code);
 		
 		Itemchk itemchk=itemchkService.userCheck(ques_key, userid, community_key);
-		List<String> itemchkval=new ArrayList<String>();
+		List<Itemval> itemvalList=new ArrayList<Itemval>();
 		if(itemchk!=null&&itemchk.getVal()!=null){
-			itemchkval=itemchk.getVal();
+			itemvalList=itemchk.getVal();
 		}
 		
 		Map<String,Integer> level2count=new HashMap<String,Integer>();
-		for (String chk_code : itemchkval) {
-			String level2code=StringUtils.substringBeforeLast(chk_code, ".");
-			Integer count=level2count.get(level2code);
-			if(count!=null){
-				level2count.put(level2code, count+1);
+		for (Itemval itemval : itemvalList) {
+			String level2code=StringUtils.substringBeforeLast(itemval.getItem_code(), ".");
+			Integer sum=level2count.get(level2code);
+			if(sum!=null){
+				level2count.put(level2code, sum+itemval.getVal());
 			}else{
-				level2count.put(level2code, 1);
+				level2count.put(level2code, itemval.getVal());
 			}
 		}
 
@@ -87,6 +88,13 @@ public class StandardServiceCtl {
 			partList.add(itemMap);
 		}
 		return partList;
+	}
+	
+	@RequestMapping(value="save/{userid}/{community_key}/{ques_key}",method=RequestMethod.POST)
+	@ResponseBody
+	public boolean save(@PathVariable("userid")String userid,@PathVariable("community_key")String community_key,@PathVariable("ques_key")String ques_key,String item_code,int val){
+		this.itemchkService.saveUserCheck(ques_key, userid, community_key, item_code, val);
+		return true;
 	}
 
 }

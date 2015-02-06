@@ -29,8 +29,8 @@ public class ItemchkServiceImpl implements ItemchkService {
 
 	@Override
 	@Transactional
-	public void addUserCheck(String ques_key, String userid,
-			String community_key, String part_code, String val) {
+	public void saveUserCheck(String ques_key, String userid,
+			String community_key, String item_code, int val) {
 		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunity(ques_key, userid, community_key);
 		if(itemchk==null){
 			itemchk=new Itemchk();
@@ -40,17 +40,11 @@ public class ItemchkServiceImpl implements ItemchkService {
 			this.itemchkMapper.save(itemchk);
 		}
 		int itemchk_id=itemchk.getId();
-		this.itemchkMapper.insertVal(itemchk_id, val);
-	}
-
-	@Override
-	@Transactional
-	public void removeUserCheck(String ques_key, String userid,
-			String community_key, String part_code, String val) {
-		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunity(ques_key, userid, community_key);
-		if(itemchk!=null){
-			int itemchk_id=itemchk.getId();
-			this.itemchkMapper.deleteVal(itemchk_id, val);
+		boolean exits = this.itemchkMapper.exits(itemchk_id, item_code);
+		if(exits){
+			this.itemchkMapper.updateVal(itemchk_id,item_code,val);
+		}else{			
+			this.itemchkMapper.insertVal(itemchk_id,item_code,val);
 		}
 	}
 

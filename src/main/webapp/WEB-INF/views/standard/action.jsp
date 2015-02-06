@@ -37,13 +37,43 @@
 	}
 	
 	.row .div_chk{
+		line-height:50px;
 		float: right;
+		color: #ea4424;
+	    font-size: 30px;
+	    font-family: SimHei;
 		width: 50px;
+		text-align: center;
 	}
 	
 	.row .div_content{
-		padding-left: 5px;
+		padding-left:5px;
 		overflow:hidden;
+	}
+	
+ 	.row .div_sel{
+ 		width:100%;
+		position:absolute; 
+		margin-top:-50px;
+		right:0px;
+		color: #FFFFFF;
+	    font-size: 30px;
+	    text-align: center;
+	    font-family: SimHei;
+	} 
+	
+	.row .div_sel .selop{
+		float:right;
+		display:block;
+		width:50px;
+		height: 50px;
+		line-height: 50px;
+		background-color: #9e9480;
+		border-left: 1px solid gray;
+	}
+	
+	.row .div_sel .selchk{
+		color: #ea4424;
 	}
 	
 	.row_select {
@@ -53,41 +83,7 @@
 	.row_select .div_no{
 		color: #ea4424;
 	}
-	.row_select  .circle div {
-		background-color:#38444e;
-	}
-	/*------------------------------*/
-	.circle {
-		margin:0 auto;
-		margin-top:10px;
-	    height: 30px;
-	    width: 30px;
-	    border-radius: 15px;
-	    background: #ea4424;
-	}
-	
-	.circle div {
-	    position: relative;
-	    height: 20px;
-	    width: 20px;
-	    background: #9e9480;
-	    border-radius: 10px;
-	    left: 5px;
-	    top: 5px;
-	}
-	
 
-	.row .div_chk .times{
-		height:50px;
-		line-height:50px;
-		font-size: 50px;
-		color:white;
-		text-align: center;
-		margin-top: -5px;
-		font-weight: 900;
-	}
-	
-	/*-----------------------------------*/
 	.cmt{
 		background-color:#38444e;
 		width:100%;
@@ -108,16 +104,21 @@
 </style>
 </head>
 <body>
-<div class="ct">
+<div>
 <c:forEach var="uicv" items="${userItemChkValList}" varStatus="status"> 
 	<c:choose>
 		<c:when test="${status.count>=10}"><c:set var="no" value="A" /></c:when>
 		<c:otherwise><c:set var="no" value="${status.count}" /></c:otherwise>
 	</c:choose>
-	<div class="row <c:if test="${uicv.ischeck}">row_select</c:if>"  data-code="${uicv.item.code}"  >
+	<div class="row "  data-code="${uicv.item.code}"  >
 		<div class="div_no">${no}</div>
-		<div class="div_chk"><div class="circle <c:if test='${!uicv.ischeck}'>none</c:if>"><div></div></div> <div class="times <c:if test='${uicv.ischeck}'>none</c:if>">&times;</div> </div>
+		<div class="div_chk">${uicv.val}</div>
 		<div class="div_content" data-cmt="${uicv.iscomment}">${uicv.item.content}</div>
+		<div class="div_sel none">
+			<c:forEach var="s"  begin="0" end="4" >
+				<div class="selop  <c:if test="${uicv.val==4-s}">selchk</c:if>">${4-s}</div>
+			</c:forEach>
+		</div> 
 	</div>
 	<c:if test="${uicv.iscomment}">
 	<div class="cmt none">
@@ -140,30 +141,32 @@ $(function(){
 		}
 	})
 	
-	$(".div_chk").click(function(){
-		var chkdiv=$(this);
-		if(chkdiv.hasClass("div_load")){
-			return;
-		}else{
-			chkdiv.find(".circle,.times").hide();
-			chkdiv.addClass("div_load");
+	$(".selop").click(function(){
+		var selop=$(this);
+		if(selop.hasClass("selchk")){
+			selop.parent().hide();
+			return;//得分未改变
 		}
-	  	
-		var row=chkdiv.parent();
-		var item_code=row.data("code");
-	  	if(row.hasClass("row_select")){
-	  	   $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'remove'},function(){	
-	  		  row.removeClass("row_select"); 
-	  		  chkdiv.removeClass("div_load");
-	  		  chkdiv.find(".times").show();
-	  	   }); 
-	  	}else{
-   		  $.post('${ctx}/standard/toggle/${userid}/${community_key}/${ques_key}/${item_code}',{val:item_code,action:'add'},function(){	
-  			row.addClass("row_select"); 
-  			chkdiv.removeClass("div_load");
-  			chkdiv.find(".circle").show();
-  	      }); 
-	  	}
+		
+		var row=selop.parent().parent();
+		var div_chk=row.find(".div_chk");
+		var selopval=selop.html();		
+		var item_code=row.data("code");	
+		div_chk.html('').addClass("div_load");
+		selop.parent().hide();
+		$.post('${ctx}/standard/service/save/${userid}/${community_key}/${ques_key}',{item_code:item_code,val:selopval},function(){	
+	  		row.find(".selchk").removeClass('selchk');
+	  		div_chk.html(selopval);
+	  		selop.addClass("selchk");
+		})
+		.complete(function(){
+			div_chk.removeClass("div_load")
+		})
+	
+	});
+	
+	$(".div_chk").click(function(){
+		$(this).next().next().show();
 	});
 })
 </script>

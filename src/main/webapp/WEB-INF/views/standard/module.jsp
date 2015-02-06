@@ -8,10 +8,7 @@
 <%@ include file="/common/meta.jsp"%>
 <%@ include file="/common/include.jsp"%>
 <style type="text/css">
-.container
-{
-	
-}
+
 .li_md{
 	display:block;
 	float: left;

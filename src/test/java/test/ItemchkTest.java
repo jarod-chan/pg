@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import test.common.H;
 
 import cn.fyg.pg.domain.itemchk.Itemchk;
+import cn.fyg.pg.domain.itemchk.Itemval;
 import cn.fyg.pg.infrastructure.persistent.ItemchkMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,8 +23,8 @@ public class ItemchkTest {
 	public void findItemchk(){
 		Itemchk itemchk = itemchkMapper.findByQuesAndUserAndCommunity("v150116", "13857659857", "jyhy");
 		H.p(itemchk);
-		for (String val : itemchk.getVal()) {
-			System.out.println(val);
+		for (Itemval val : itemchk.getVal()) {
+			H.p(val);
 		}
 	}
 	
@@ -39,10 +40,11 @@ public class ItemchkTest {
 	}
 	
 	@Test
-	public void saveVal(){
-		this.itemchkMapper.insertVal(1,"1.1.1");
+	public void exits(){
+		boolean exits = this.itemchkMapper.exits(22, "1.1.11");
+		H.p(exits);
 	}
-	
+
 	@Test
 	public void findpartscore(){
 		int count = this.itemchkMapper.countByQuesAndUserAndCommunityAndItem("v150116", "13857659857", "jyhy", "1");

@@ -13,6 +13,7 @@ import cn.fyg.pg.application.ItemchkService;
 import cn.fyg.pg.application.ItemcmtService;
 import cn.fyg.pg.domain.item.Item;
 import cn.fyg.pg.domain.itemchk.Itemchk;
+import cn.fyg.pg.domain.itemchk.Itemval;
 import cn.fyg.pg.domain.itemcmt.Itemcmt;
 import cn.fyg.pg.interfaces.module.standard.dto.ItemChkVal;
 
@@ -33,9 +34,11 @@ class StandardAssembler {
 		
 		//问题答案
 		Itemchk itemchk=this.itemchkService.userCheck(ques_key, userid, community_key);
-		List<String> itemchkval=new ArrayList<String>();
+		Map<String,Integer> itemvalMap=new HashMap<String,Integer>();
 		if(itemchk!=null&&itemchk.getVal()!=null){
-			itemchkval=itemchk.getVal();
+			for (Itemval itemval : itemchk.getVal()) {
+				itemvalMap.put(itemval.getItem_code(),itemval.getVal());
+			}
 		}
 		
 		//问题注释
@@ -52,10 +55,11 @@ class StandardAssembler {
 			ItemChkVal itemChkVal = new ItemChkVal();
 			itemChkVal.setItem(item);
 			String thisItemCode = item.getCode();
-			if(itemchkval.contains(thisItemCode)){				
-				itemChkVal.setIscheck(true);
+			Integer val = itemvalMap.get(thisItemCode);
+			if(val!=null){				
+				itemChkVal.setVal(val);
 			}else{
-				itemChkVal.setIscheck(false);
+				itemChkVal.setVal(Integer.valueOf(0));
 			}
 			String comment=codeCommentMap.get(thisItemCode);
 			if(comment!=null){
