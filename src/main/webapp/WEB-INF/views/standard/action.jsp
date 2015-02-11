@@ -61,6 +61,7 @@
 	    text-align: center;
 	    font-family: SimHei;
 	    background-color:#9e9480;
+	    width: 100%;
 	} 
 	
 	.row .row_select{
@@ -79,6 +80,15 @@
 	
 	.row .div_sel .selchk{
 		color: #ea4424;
+	}
+	
+	.row .div_sel .selfile{
+		float:left;
+		display:block;
+		width:50px;
+		height: 50px;
+		line-height: 50px;
+		border-right: 1px solid gray;
 	}
 	
 	.row_select {
@@ -128,6 +138,7 @@
 			<c:forEach var="s"  begin="0" end="4" >
 				<div class="selop  <c:if test="${uicv.val==4-s}">selchk</c:if>">${4-s}</div>
 			</c:forEach>
+				<div class="selfile">附</div>
 		</div> 
 	</div>
 	<c:if test="${uicv.iscomment}">
@@ -187,6 +198,12 @@ $(function(){
 		event.stopPropagation();
 		$(".div_sel").hide();
 		$(this).parent().find(".div_sel").show();
+	});
+	
+	$(".selfile").click(function(){
+		var row=$(this).parent().parent();
+		var item_code=row.data("code");	
+		goto('${ctx}/fileup/${userid}/${community_key}/${ques_key}/'+item_code);
 	});
 })
 </script>

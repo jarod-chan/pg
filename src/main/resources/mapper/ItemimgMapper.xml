@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.fyg.pg.infrastructure.persistent.ItemimgMapper">
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="Itemimg">  
+	   insert into itemimg (itemchk_id,item_code,img) 
+	   values (#{itemchk_id},#{item_code},#{img})
+	</insert> 
+	
+	<select id="findImgs" resultType="Itemimg">
+	   select * from itemimg where itemchk_id=#{itemchk_id} and item_code=#{item_code} order by id
+	</select>
+	
+	<delete id="delete" >
+		delete from itemimg where id=#{id}
+	</delete>
+	
+</mapper>
