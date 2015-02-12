@@ -68,12 +68,12 @@
 			<div class="backimg"></div>
 			<div class="divscore">
 				<div class="score_a">
-					<div class="font-center font-typea">加权分值</div>
-					<div class="font-center"><span class="font-point-small">00.00</span></div>
+					<div class="font-center font-typea none">加权分值</div>
+					<div class="font-center"><span class="font-point-small none">00.00</span></div>
 				</div>
 				<div class="score_b">
-					<div  class="font-center font-typeb">累积分值</div>
-					<div class="font-center"><span class="font-point-small md_s_total"></span></div>
+					<div  class="font-center font-typeb none">累积分值</div>
+					<div class="font-center"><span class="font-point-small md_s_total none"></span></div>
 				</div>
 			</div>
 			

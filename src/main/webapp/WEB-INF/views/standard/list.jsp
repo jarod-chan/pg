@@ -75,13 +75,11 @@ $(function(){
 	 var timestamp=new Date().getTime();
  	 var scoreSpan=$(".font-point-ss");
 	 $.get('${ctx}/standard/service/itemscore/${userid}/${community_key}/${ques_key}/${item.code}?timestamp='+timestamp,function(data){
-		 var total=0;
-		 for(var i=0;i<data.length;i++){
+		 for(var i=0;i<data.length-1;i++){
 			 item=data[i];
-			 total=total+item.score;
 			 scoreSpan.eq(i).html(item.score);
 		 }
-		 $(".md_s_total").html(total);
+		 $(".md_s_total").html(data[data.length-1].score+"%");
 	 }); 
 	$(".row").click(function(){
 		$(this).addClass('blink');

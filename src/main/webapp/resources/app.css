@@ -33,7 +33,7 @@ ol, ul { list-style: none; }
 
 .font-point{
 	color:#ea4424;
-    font-size: 99px;
+    font-size: 90px;
     font-family: SimHei;
     font-weight: bolder;
 }
@@ -95,5 +95,8 @@ ol, ul { list-style: none; }
 	color:#5a3d42;
 }
 
+.none{
+	display: none;
+}
 
 

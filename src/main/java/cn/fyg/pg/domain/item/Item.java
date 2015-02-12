@@ -16,6 +16,10 @@ public class Item {
 	private String  level;
 	
 	private String code;
+	
+	private int fson;//比例分子
+	
+	private int fmonther;//比例分母
 
 	public String getQues_key() {
 		return ques_key;
@@ -47,6 +51,22 @@ public class Item {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public int getFson() {
+		return fson;
+	}
+
+	public void setFson(int fson) {
+		this.fson = fson;
+	}
+
+	public int getFmonther() {
+		return fmonther;
+	}
+
+	public void setFmonther(int fmonther) {
+		this.fmonther = fmonther;
 	}
 	
 	

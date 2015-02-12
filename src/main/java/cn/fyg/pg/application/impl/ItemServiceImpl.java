@@ -32,4 +32,9 @@ public class ItemServiceImpl implements ItemService {
 		return this.itemMapper.findByQuesAndLevel(ques_key, "1");
 	}
 
+	@Override
+	public List<Item> levelItem(String ques_key, String code, int level) {
+		return this.itemMapper.findByQuesAndCodeAndLevel(ques_key, code, String.valueOf(level));
+	}
+
 }
