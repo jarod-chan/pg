@@ -35,7 +35,7 @@ public class FileupCtl {
 	private static final String PATH = "fileup/";
 
 	private interface Page {
-		String FILEUP = PATH + "md";
+		String FILEUP = PATH + "fileup";
 	}
 
 	@Autowired
