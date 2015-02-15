@@ -1,5 +1,6 @@
 package cn.fyg.pg.application.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class ItemimgServiceImpl implements ItemimgService {
 	
 	@Override
 	@Transactional
-	public Itemimg saveImg(String ques_key, String userid, String community_key,
-			String item_code, String img) {
+	public  List<Itemimg> saveImg(String ques_key, String userid,
+			String community_key, String item_code, List<String> imgIds) {
 		Itemchk itemchk = this.itemchkMapper.findByQuesAndUserAndCommunity(ques_key, userid, community_key);
 		if(itemchk==null){
 			itemchk=new Itemchk();
@@ -33,12 +34,16 @@ public class ItemimgServiceImpl implements ItemimgService {
 			this.itemchkMapper.save(itemchk);
 		}
 		int itemchk_id=itemchk.getId();
-		Itemimg itemimg=new Itemimg();
-		itemimg.setItemchk_id(itemchk_id);
-		itemimg.setItem_code(item_code);
-		itemimg.setImg(img);
-		this.itemimgMapper.insert(itemimg);
-		return itemimg;
+		ArrayList<Itemimg> itemimgList = new ArrayList<Itemimg>();
+		for(String img_id:imgIds){
+			Itemimg itemimg=new Itemimg();
+			itemimg.setItemchk_id(itemchk_id);
+			itemimg.setItem_code(item_code);
+			itemimg.setImg_id(img_id);
+			this.itemimgMapper.insert(itemimg);
+			itemimgList.add(itemimg);
+		}
+		return itemimgList;
 	}
 
 	@Override
@@ -57,5 +62,7 @@ public class ItemimgServiceImpl implements ItemimgService {
 	public void delete(int id) {
 		this.itemimgMapper.delete(id);
 	}
+
+
 
 }

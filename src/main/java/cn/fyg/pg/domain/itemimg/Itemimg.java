@@ -1,18 +1,18 @@
 package cn.fyg.pg.domain.itemimg;
 
 /**
- *评分项目的附件，保存数据库中
+ *评分项目的附件
  */
 public class Itemimg {
 	
-	private int id;
+	private int id;//用来保持上传的顺序
 	
 	private int itemchk_id;
 	
 	private String item_code;
 	
-	private String img;
-
+	private String img_id;//文件id
+	
 	public int getId() {
 		return id;
 	}
@@ -37,14 +37,13 @@ public class Itemimg {
 		this.item_code = item_code;
 	}
 
-	public String getImg() {
-		return img;
+	public String getImg_id() {
+		return img_id;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
+	public void setImg_id(String img_id) {
+		this.img_id = img_id;
 	}
-	
-	
 
+	
 }

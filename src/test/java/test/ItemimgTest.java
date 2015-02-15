@@ -23,7 +23,7 @@ public class ItemimgTest {
 		Itemimg itemimg=new Itemimg();
 		itemimg.setItemchk_id(22);
 		itemimg.setItem_code("1.1.2");
-		itemimg.setImg("ddd");
+		itemimg.setImg_id("ddd");
 		this.itemimgMapper.insert(itemimg);
 		H.p(itemimg);
 	}

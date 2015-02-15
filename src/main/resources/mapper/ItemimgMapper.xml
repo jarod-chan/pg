@@ -5,8 +5,8 @@
 <mapper namespace="cn.fyg.pg.infrastructure.persistent.ItemimgMapper">
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="Itemimg">  
-	   insert into itemimg (itemchk_id,item_code,img) 
-	   values (#{itemchk_id},#{item_code},#{img})
+	   insert into itemimg (itemchk_id,item_code,img_id) 
+	   values (#{itemchk_id},#{item_code},#{img_id})
 	</insert> 
 	
 	<select id="findImgs" resultType="Itemimg">
