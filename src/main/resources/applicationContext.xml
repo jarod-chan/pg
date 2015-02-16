@@ -17,6 +17,7 @@
   	<import resource="infrastructure-mybatis.xml"/>
   	<import resource="infrastructure-email.xml" />
   	<import resource="infrastructure-weixin.xml" />
+  	<import resource="infrastructure-other.xml" />
   	
 
 	

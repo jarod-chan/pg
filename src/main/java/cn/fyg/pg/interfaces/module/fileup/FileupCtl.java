@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.fyg.pg.application.ImgFileService;
 import cn.fyg.pg.application.ItemService;
 import cn.fyg.pg.application.ItemimgService;
 import cn.fyg.pg.domain.itemimg.Itemimg;
@@ -76,6 +77,8 @@ public class FileupCtl {
 	
 	@Autowired
 	ItemimgService itemimgService;
+	@Autowired
+	ImgFileService imgFileService;
 	
 	@RequestMapping(value="{userid}/{community_key}/{ques_key}/{item_code:.+}",method=RequestMethod.POST)
 	@ResponseBody
@@ -85,6 +88,7 @@ public class FileupCtl {
 			@PathVariable("item_code") String item_code,@RequestParam(value = "imgIds[]")List<String> imgIds){
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		try{
+			imgFileService.download(imgIds);
 			List<Itemimg> itemimgList = this.itemimgService.saveImg(ques_key, userid, community_key, item_code, imgIds);
 			for(Itemimg itemimg:itemimgList){
 				ids.add(itemimg.getId());
