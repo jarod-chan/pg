@@ -88,8 +88,9 @@ public class FileupCtl {
 			@PathVariable("item_code") String item_code,@RequestParam(value = "imgIds[]")List<String> imgIds){
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		try{
-			imgFileService.download(imgIds);
+			
 			List<Itemimg> itemimgList = this.itemimgService.saveImg(ques_key, userid, community_key, item_code, imgIds);
+			this.imgFileService.download(imgIds);
 			for(Itemimg itemimg:itemimgList){
 				ids.add(itemimg.getId());
 			}

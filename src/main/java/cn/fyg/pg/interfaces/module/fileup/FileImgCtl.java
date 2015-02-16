@@ -25,7 +25,7 @@ public class FileImgCtl {
 	@RequestMapping(value = "{filename:.+}", method = RequestMethod.GET)
 	public void fileimg(@PathVariable String filename,
 			HttpServletResponse response) {
-
+		
 		FileInputStream fis = null;
 		response.setContentType("image/jpg");
 		try {
