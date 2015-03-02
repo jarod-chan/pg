@@ -64,6 +64,11 @@ public class ItemimgServiceImpl implements ItemimgService {
 		this.itemimgMapper.delete(id);
 	}
 
+	@Override
+	public Itemimg find(int id) {
+		return this.itemimgMapper.find(id);
+	}
+
 
 
 }

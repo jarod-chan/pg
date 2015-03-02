@@ -18,4 +18,6 @@ public interface ItemimgMapper {
 	
 	public void setItemimgLocal(@Param("id")int id);
 
+	public Itemimg find(@Param("id")int id);
+
 }

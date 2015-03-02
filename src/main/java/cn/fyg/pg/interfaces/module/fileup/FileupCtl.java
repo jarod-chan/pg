@@ -106,7 +106,9 @@ public class FileupCtl {
 	@RequestMapping(value="delete/{id}",method=RequestMethod.POST)
 	@ResponseBody
 	public boolean delete(@PathVariable("id") int id){
-		this.itemimgService.delete(id);
+		Itemimg itemimg = this.itemimgService.find(id);
+		this.imgFileService.delete(itemimg.getImg_id());
+		this.itemimgService.delete(itemimg.getId());
 		return true;
 	}
 	

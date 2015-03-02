@@ -33,6 +33,7 @@ public class ImgFileServiceImpl implements ImgFileService {
 	  
 	@Async
 	@Override
+	/*后台服务器线程异步执行文件下载*/
 	public void download(List<Itemimg> itemimgList) throws WxErrorException {
 		logger.info("async download file from weixin server");
 		for(Itemimg itemimg:itemimgList){			
@@ -51,5 +52,14 @@ public class ImgFileServiceImpl implements ImgFileService {
 		return	new File(fileDirectory +imgName);
 	}
 	
+	@Async
+	@Override
+	public void delete(String imgid){
+		//微信上传图片的文件格式暂时都作为jpg处理，可能有问题
+		File file = new File(fileDirectory +imgid+".jpg");
+		if(file.exists()&& !file.isDirectory()){
+			file.delete();
+		}
+	}
 	
 }

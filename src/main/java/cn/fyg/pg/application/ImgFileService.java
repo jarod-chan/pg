@@ -12,4 +12,6 @@ public interface ImgFileService {
 	public File getImgFile(String imgName);
 
 	public void download(List<Itemimg> itemimgList)throws WxErrorException ;
+
+	void delete(String imgid);
 }
