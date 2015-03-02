@@ -40,6 +40,7 @@ public class ItemimgServiceImpl implements ItemimgService {
 			itemimg.setItemchk_id(itemchk_id);
 			itemimg.setItem_code(item_code);
 			itemimg.setImg_id(img_id);
+			itemimg.setLocal(false);
 			this.itemimgMapper.insert(itemimg);
 			itemimgList.add(itemimg);
 		}

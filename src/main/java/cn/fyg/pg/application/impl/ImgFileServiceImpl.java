@@ -6,6 +6,7 @@ import java.util.List;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.cp.api.WxCpService;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import cn.fyg.pg.application.ImgFileService;
+import cn.fyg.pg.domain.itemimg.Itemimg;
+import cn.fyg.pg.infrastructure.persistent.ItemimgMapper;
 
 @Service
 public class ImgFileServiceImpl implements ImgFileService {
@@ -23,24 +26,28 @@ public class ImgFileServiceImpl implements ImgFileService {
 	String fileDirectory;
 	
 	@Autowired
+	ItemimgMapper itemimgMapper;
+	
+	@Autowired
 	WxCpService wxCpService;
 	  
 	@Async
 	@Override
-	public void download(List<String> imgIds) throws WxErrorException {
-		for(String imgid:imgIds){			
-			File file = wxCpService.mediaDownload(imgid);
-			File newFile = new File(fileDirectory +file.getName());
+	public void download(List<Itemimg> itemimgList) throws WxErrorException {
+		logger.info("async download file from weixin server");
+		for(Itemimg itemimg:itemimgList){			
+			File file = wxCpService.mediaDownload(itemimg.getImg_id());
+			String filename=file.getName();
+			String suffix=StringUtils.substringAfterLast(filename, ".");
+			File newFile = new File(fileDirectory +itemimg.getImg_id()+"."+suffix);
 			file.renameTo(newFile); 
-			logger.info(file.getName());
+			this.itemimgMapper.setItemimgLocal(itemimg.getId());
 		}
 	}
 	
-	private static int count=0;
 
 	@Override
 	public File getImgFile(String imgName) {
-		System.out.println(++count);
 		return	new File(fileDirectory +imgName);
 	}
 	

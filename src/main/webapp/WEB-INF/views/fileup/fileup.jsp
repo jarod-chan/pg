@@ -83,7 +83,11 @@ wx.config({
 <body>
 <ul class="ul_fileup">
 	 <c:forEach var="itemimg" items="${itemimgList}" varStatus="status">
-	 <li id='${itemimg.id}' data-url='https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=${ACCESS_TOKEN}&media_id=${itemimg.img_id}' ><div class='close_span'></div><div><img src='https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=${ACCESS_TOKEN}&media_id=${itemimg.img_id}' /></div></li> 
+	 <c:choose>
+	 <c:when test="${itemimg.local}"><c:set var="dataUrl" value="${serverNameWithPort}${ctx}/fileimg/${itemimg.img_id}.jpg" /></c:when>
+	 <c:otherwise><c:set var="dataUrl" value="https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=${ACCESS_TOKEN}&media_id=${itemimg.img_id}" /></c:otherwise>
+	 </c:choose>
+	 <li id='${itemimg.id}' data-url='${dataUrl}' ><div class='close_span'></div><div><img src='${dataUrl}' /></div></li> 
 	</c:forEach>
     <li id="last_li">
         <div class="add_img_div"></div>
@@ -168,6 +172,7 @@ wx.config({
 		
 				
 		function saveImgs(serverIds){
+			add_img_div.html("");
 		 	$.post('${ctx}/fileup/${userid}/${community_key}/${ques_key}/${item_code}',{imgIds:serverIds},function(ret){	
 		 		if(ret){
 		 			var temp=$(".temp");
@@ -175,7 +180,7 @@ wx.config({
 		 			for(var i=0;i<len;i++){
 		 				temp.eq(i).removeClass('temp').attr("id",ret[i]).find(".close_span").show();
 		 			}
-		 			add_img_div.html("").removeClass("load_img_div");	 
+		 			add_img_div.removeClass("load_img_div");	 
 		 		}
 			});
 		};

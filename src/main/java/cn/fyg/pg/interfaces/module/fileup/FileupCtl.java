@@ -65,6 +65,9 @@ public class FileupCtl {
 			logger.error("can't get jsapi Signature", e);
 		}
 		
+		String serverNameWithPort=request.getScheme()+"://"+request.getHeader("host");
+		map.put("serverNameWithPort", serverNameWithPort);
+		
 		List<Itemimg> itemimgList = this.itemimgService.findImgs(ques_key, userid, community_key, item_code);
 		map.put("itemimgList", itemimgList);
 		
@@ -90,7 +93,7 @@ public class FileupCtl {
 		try{
 			
 			List<Itemimg> itemimgList = this.itemimgService.saveImg(ques_key, userid, community_key, item_code, imgIds);
-			this.imgFileService.download(imgIds);
+			this.imgFileService.download(itemimgList);
 			for(Itemimg itemimg:itemimgList){
 				ids.add(itemimg.getId());
 			}

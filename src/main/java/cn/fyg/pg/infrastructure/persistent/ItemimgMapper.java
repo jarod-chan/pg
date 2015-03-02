@@ -15,5 +15,7 @@ public interface ItemimgMapper {
 	public List<Itemimg> findImgs(@Param("itemchk_id")int itemchk_id,@Param("item_code")String item_code);
 
 	public void delete(@Param("id")int id);
+	
+	public void setItemimgLocal(@Param("id")int id);
 
 }

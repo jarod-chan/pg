@@ -13,6 +13,8 @@ public class Itemimg {
 	
 	private String img_id;//文件id
 	
+	private boolean local;//是否本地文件
+	
 	public int getId() {
 		return id;
 	}
@@ -45,5 +47,13 @@ public class Itemimg {
 		this.img_id = img_id;
 	}
 
-	
+	public boolean isLocal() {
+		return local;
+	}
+
+	public void setLocal(boolean local) {
+		this.local = local;
+	}
+
+		
 }
