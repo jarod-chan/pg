@@ -274,7 +274,7 @@
 
 
 	<build>
-		<finalName>mbt</finalName>
+		<finalName>pg</finalName>
 
 		<resources>
 			<resource>
