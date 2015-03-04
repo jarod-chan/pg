@@ -30,7 +30,7 @@ public class ServiceCtl {
 	WxCpMessageRouter wxCpMessageRouter;
 	
 	@RequestMapping(value="",method={RequestMethod.GET,RequestMethod.POST})
-	public void auth(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		 	response.setContentType("text/html;charset=utf-8");
 		    response.setStatus(HttpServletResponse.SC_OK);
 
