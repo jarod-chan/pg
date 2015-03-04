@@ -39,11 +39,15 @@
 	.row .div_chk{
 		line-height:50px;
 		float: right;
-		color: #ea4424;
+		color: #ffffff;
 	    font-size: 30px;
 	    font-family: SimHei;
 		width: 50px;
 		text-align: center;
+	}
+	
+	.row_select .div_chk{
+		color: #ea4424;
 	}
 	
 	.row .div_content{
