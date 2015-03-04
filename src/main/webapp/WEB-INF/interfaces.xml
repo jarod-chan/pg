@@ -10,8 +10,9 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-
 	<context:annotation-config />
+	
+	<context:component-scan base-package="cn.fyg.pg.interfaces" />
 
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!--过滤infterfaces 里任何一个ctl类 记录日志 -->
@@ -21,5 +22,18 @@
 			<aop:before method="before" pointcut-ref="pointCut" />
 		</aop:aspect>
 	</aop:config>
+	
+	<!-- 初始化微信消息处理路由 -->
+	<bean class="cn.fyg.pg.interfaces.weixin.message.WxMessageHandlerCreater" init-method="initHandler">  
+        <constructor-arg>
+        	 <list value-type="cn.fyg.pg.interfaces.weixin.message.WxMessageHandler">
+	          <ref bean="buttonClickCommunityHandler"/>
+	          <ref bean="buttonClickResultHandler"/>
+	        </list>
+        </constructor-arg>
+         <constructor-arg ref="wxCpMessageRouter"/>
+    </bean> 
+	
+	
 </beans>
 

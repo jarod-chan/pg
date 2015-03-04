@@ -47,6 +47,8 @@ public class FileupCtl {
 	WxCpJsapiService wxCpJsapiService;
 	@Autowired
 	WxCpService wxCpService;
+	@Autowired
+	String serverNamePort; 
 
 
 	@RequestMapping(value = "{userid}/{community_key}/{ques_key}/{item_code:.+}", method = RequestMethod.GET)
@@ -65,8 +67,7 @@ public class FileupCtl {
 			logger.error("can't get jsapi Signature", e);
 		}
 		
-		String serverNameWithPort=request.getScheme()+"://"+request.getHeader("host");
-		map.put("serverNameWithPort", serverNameWithPort);
+		map.put("serverNamePort", serverNamePort);
 		
 		List<Itemimg> itemimgList = this.itemimgService.findImgs(ques_key, userid, community_key, item_code);
 		map.put("itemimgList", itemimgList);

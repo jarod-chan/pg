@@ -23,4 +23,8 @@
 		<property name="wxCpJsapiStorage" ref="wxCpJsapiStorage" />
 	</bean>
 	
+	<bean id="wxCpMessageRouter" class="me.chanjar.weixin.cp.api.WxCpMessageRouter">
+		<constructor-arg ref="wxCpService" /> 
+	</bean>
+	
 </beans>

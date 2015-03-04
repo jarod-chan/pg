@@ -84,7 +84,7 @@ wx.config({
 <ul class="ul_fileup">
 	 <c:forEach var="itemimg" items="${itemimgList}" varStatus="status">
 	 <c:choose>
-	 <c:when test="${itemimg.local}"><c:set var="dataUrl" value="${serverNameWithPort}${ctx}/fileimg/${itemimg.img_id}.jpg" /></c:when>
+	 <c:when test="${itemimg.local}"><c:set var="dataUrl" value="${serverNamePort}fileimg/${itemimg.img_id}.jpg" /></c:when>
 	 <c:otherwise><c:set var="dataUrl" value="https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=${ACCESS_TOKEN}&media_id=${itemimg.img_id}" /></c:otherwise>
 	 </c:choose>
 	 <li id='${itemimg.id}' data-url='${dataUrl}' ><div class='close_span'></div><div><img src='${dataUrl}' /></div></li> 

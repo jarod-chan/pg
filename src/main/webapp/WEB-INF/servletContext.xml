@@ -40,9 +40,8 @@
 		<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
 	</util:list>
 	
-	<context:component-scan base-package="cn.fyg.pg.interfaces" />
 	
-	<import resource="servletLog.xml" />
+	<import resource="interfaces.xml" />
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 设置编码，防止文件名的中文乱码 -->
