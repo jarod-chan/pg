@@ -21,12 +21,7 @@
     <task:scheduler id="taskScheduler" pool-size="10" /> 
   	
   	<import resource="infrastructure-mybatis.xml"/>
-  	<import resource="infrastructure-email.xml" />
   	<import resource="infrastructure-weixin.xml" />
   	<import resource="infrastructure-other.xml" />
   	
-
-	
-	
-
 </beans>
