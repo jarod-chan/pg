@@ -57,7 +57,9 @@ public class FileupCtl {
 			@PathVariable("ques_key") String ques_key,
 			@PathVariable("item_code") String item_code, Map<String, Object> map,HttpServletRequest request) {
 		
-		String url=request.getRequestURL().toString();
+		String url=request.getRequestURI().substring(request.getContextPath().length()+1);
+		url=serverNamePort+url;
+		
 		try {
 			WxCpJsapiSignature wxCpJsapiSignature = this.wxCpJsapiService.createJsapiSignature(url);
 			map.put("wxCpJsapiSignature", wxCpJsapiSignature);
